@@ -12,7 +12,7 @@ A web-based, Minecraft-education-style voxel world that recreates
 - **在线**（开启 GitHub Pages 后）：`https://<你的用户名>.github.io/vitroxcraft/`
 - **本地**：下载 `index.html`，双击用 Chrome / Edge 打开（首次需联网加载 Three.js）
 
-需要电脑 + 键盘鼠标。完整操作说明、多人连线教程、FAQ 和课堂建议见 **[使用说明书 MANUAL.md](MANUAL.md)**。
+电脑键鼠体验最佳，手机/平板有触屏操作（摇杆 + 按钮）。完整操作说明、多人连线教程、FAQ 和课堂建议见 **[使用说明书 MANUAL.md](MANUAL.md)**。
 
 ## ✨ 功能 / Features
 
