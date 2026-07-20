@@ -38,10 +38,10 @@ mouse, and press `E` near anything interactive.
   Stations 1–10, each a direct doorway into one chapter — algorithms & syntax,
   3D coordinates, variables, arrays, `for` loops, `if/else`, `while` loops,
   functions, decomposition, and an open-ended capstone. 23 questions, 230
-  points total; correct answers are scored live in the HUD and a dashboard
-  (press `Q`), saved to `localStorage`. A big blackboard mounted between the
-  two rooms (visible from both sides) shows live progress and score across
-  all 10 chapters. Four Computing School lecturers staff the rooms and teach
+  points total; correct answers are scored live in the HUD, saved to
+  `localStorage`. A big blackboard mounted between the two rooms (visible
+  from both sides) — the classroom dashboard — shows live progress and score
+  across all 10 chapters. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
   Artificial Intelligence.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
