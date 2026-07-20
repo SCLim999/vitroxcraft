@@ -25,9 +25,10 @@ mouse, and press `E` near anything interactive.
 
 ## What's inside
 
-- **9 golden info blocks** — walk up and press `E` to read short architecture
+- **10 golden info blocks** — walk up and press `E` to read short architecture
   lessons on the campus's design concepts (radial layout, solid vs. void, green
-  roof, geometric juxtaposition, industry × campus culture, and more).
+  roof, geometric juxtaposition, industry × campus culture, and the computer
+  lab, and more).
 - **19 NPCs** — guards, receptionists, engineers, gardeners, chefs, students,
   the three real ViTrox co-founders, an architect, and lecturers — walk up and
   press `E` to talk. Dialogue is voiced with the browser's text-to-speech, using
@@ -38,9 +39,11 @@ mouse, and press `E` near anything interactive.
   3D coordinates, variables, arrays, `for` loops, `if/else`, `while` loops,
   functions, decomposition, and an open-ended capstone. 23 questions, 230
   points total; correct answers are scored live in the HUD and a dashboard
-  (press `Q`), saved to `localStorage`. Four Computing School lecturers staff
-  the rooms and teach Software Engineering, Data Science, Mobile App
-  Development (Flutter), and Artificial Intelligence.
+  (press `Q`), saved to `localStorage`. A big blackboard mounted between the
+  two rooms (visible from both sides) shows live progress and score across
+  all 10 chapters. Four Computing School lecturers staff the rooms and teach
+  Software Engineering, Data Science, Mobile App Development (Flutter), and
+  Artificial Intelligence.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
