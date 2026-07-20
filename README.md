@@ -44,7 +44,10 @@ mouse, and press `E` near anything interactive.
   from both sides) — the classroom dashboard — shows live progress and score
   across all 10 chapters. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
-  Artificial Intelligence.
+  Artificial Intelligence. Next to the Software Engineering lecturer's station are
+  3 more computers with differently-coloured screens (blue/orange/purple) covering
+  the real ViTrox College Diploma in Computer Science programme — course intro,
+  programme structure, and entry requirements.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
