@@ -29,10 +29,11 @@ mouse, and press `E` near anything interactive.
   lessons on the campus's design concepts (radial layout, solid vs. void, green
   roof, geometric juxtaposition, industry × campus culture, and the computer
   lab, and more).
-- **19 NPCs** — guards, receptionists, engineers, gardeners, chefs, students,
-  the three real ViTrox co-founders, an architect, and lecturers — walk up and
-  press `E` to talk. Dialogue is voiced with the browser's text-to-speech, using
-  a voice that matches each character (male/female).
+- **20 NPCs** — guards, receptionists, engineers, gardeners, chefs, students,
+  the three real ViTrox co-founders, an architect, lecturers, and a marketing
+  officer — walk up and press `E` to talk. Dialogue is voiced with the
+  browser's text-to-speech, using a voice that matches each character
+  (male/female).
 - **CodingMine — a 10-chapter C/C++ curriculum**: inside the VITROX-lettered
   building's 4th-floor computer rooms, 10 computers (green screens) are fixed
   Stations 1–10, each a direct doorway into one chapter — algorithms & syntax,
