@@ -44,8 +44,9 @@ mouse, and press `E` near anything interactive.
   from both sides) — the classroom dashboard — shows live progress and score
   across all 10 chapters. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
-  Artificial Intelligence. Over on the ViTrox Education walkway (not far from
-  Dr Janaka Low) are 4 wooden mailbox-style kiosks — a post, a crate and a
+  Artificial Intelligence. Scattered through the ground-floor pilotis of the
+  ViTrox Education college building — well apart from each other and from Dr
+  Janaka Low — are 4 wooden mailbox-style kiosks — a post, a crate and a
   coloured icon plaque, Minecraft-signpost style — each with a short blurb on
   a different real ViTrox College diploma: 💻 Computer Science, 📈 Business
   Studies, ⚙️ Mechatronics Engineering, and ⚡ Electrical and Electronic
