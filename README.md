@@ -38,17 +38,20 @@ press `E` near anything interactive.
   browser's text-to-speech, using a voice that matches each character
   (male/female).
 - **CodingMine IT quiz stations**: inside the VITROX-lettered building's
-  4th-floor computer rooms, 10 computers each have a *different screen colour*
+  4th-floor computer rooms, all 10 quiz computers are concentrated in the
+  first room — the one Ts Dr Lim SC is stationed in — 5 per row, facing each
+  other across the aisle he stands in. Each has a *different screen colour*
   and a *single* multiple-choice question on a different computing topic —
   Introduction to Computing, C++ Programming, Database, Information Technology,
   Data Science, Artificial Intelligence, Networking & Internet, Operating
   System, HTML, and Software Design. Questions are short and fun, aimed at
   primary/secondary-school level. Correct answers are scored live in the HUD
-  (1 point per question, 10 points total), saved to `localStorage`. A big blackboard mounted
-  between the two rooms (visible from both sides) — the classroom dashboard —
-  shows live progress per topic and total score, plus a live leaderboard of
-  every connected player's score whenever a multiplayer room is active. Four
-  Computing School lecturers staff the rooms and teach
+  (1 point per question, 10 points total), saved to `localStorage`. The second
+  computer room is now just décor — two rows of plain computers, no quiz. A
+  big blackboard mounted between the two rooms (visible from both sides) — the
+  classroom dashboard — shows live progress per topic and total score, plus a
+  live leaderboard of every connected player's score whenever a multiplayer
+  room is active. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
   Artificial Intelligence. Scattered through the ground-floor pilotis of the
   ViTrox Education college building — well apart from each other and from Dr
