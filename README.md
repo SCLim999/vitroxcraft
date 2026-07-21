@@ -20,9 +20,10 @@ external art assets.
 
 Open **[sclim999.github.io/vitroxcraft](https://sclim999.github.io/vitroxcraft/)**
 in a desktop browser (needs internet once, to load Three.js; everything else works
-offline after that). The page opens on a lock screen — enter `V231591` and click
-"Unlock" (or press Enter) to reach the start menu; this is re-checked on every
-page load. Walk with `WASD`, fly with `F`, break/place blocks with the mouse, and
+offline after that). The page opens on a lock screen and won't reveal the start
+menu until the correct password is entered (ask the maintainer for it) —
+re-checked on every page load; only a SHA-256 hash of the password ships in the
+source. Walk with `WASD`, fly with `F`, break/place blocks with the mouse, and
 press `E` near anything interactive.
 
 ## What's inside
