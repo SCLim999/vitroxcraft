@@ -51,6 +51,12 @@ mouse, and press `E` near anything interactive.
   a different real ViTrox College diploma: 💻 Computer Science, 📈 Business
   Studies, ⚙️ Mechatronics Engineering, and ⚡ Electrical and Electronic
   Engineering.
+- **HUD minimap and play timer**: a small top-down minimap (top-left) shows
+  the central courtyard as a reference circle, gold/green dots for
+  unvisited/visited info points, blue dots for NPCs, and a white arrow for
+  the player's position and facing — so it's always obvious which direction
+  to walk. A play timer next to the explore/CodingMine chips counts actual
+  play time (paused while a menu or dialogue is open).
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
