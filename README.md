@@ -5,7 +5,7 @@
 VitroxCraft is a standalone, single-file 3D voxel world — [play it live](https://sclim999.github.io/vitroxcraft/) —
 that recreates [ViTrox Campus 2.0 by CYC Architect](https://www.cycarch.com/vitrox-campus-20)
 (Batu Kawan, Penang): a central circular courtyard, radial layout, circular
-landscape ramp, doorless entrance, green roof, and rectangular production/office
+landscape ramp, doorless entrances on all four sides (E/S/W/N), green roof, and rectangular production/office
 blocks punching through the circular form, plus the Campus 3.0 expansion and a
 ViTrox Education building. It's built for teaching — architecture concepts,
 company history, and now a full **C/C++ programming curriculum** — through
