@@ -44,7 +44,7 @@ press `E` near anything interactive.
   Data Science, Artificial Intelligence, Networking & Internet, Operating
   System, HTML, and Software Design. Questions are short and fun, aimed at
   primary/secondary-school level. Correct answers are scored live in the HUD
-  (100 points total), saved to `localStorage`. A big blackboard mounted
+  (1 point per question, 10 points total), saved to `localStorage`. A big blackboard mounted
   between the two rooms (visible from both sides) — the classroom dashboard —
   shows live progress per topic and total score, plus a live leaderboard of
   every connected player's score whenever a multiplayer room is active. Four
