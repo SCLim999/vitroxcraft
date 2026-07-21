@@ -46,11 +46,13 @@ mouse, and press `E` near anything interactive.
   Software Engineering, Data Science, Mobile App Development (Flutter), and
   Artificial Intelligence. Scattered through the ground-floor pilotis of the
   ViTrox Education college building — well apart from each other and from Dr
-  Janaka Low — are 4 wooden mailbox-style kiosks — a post, a crate and a
+  Janaka Low — are 5 wooden mailbox-style kiosks — a post, a crate and a
   coloured icon plaque, Minecraft-signpost style — each with a short blurb on
-  a different real ViTrox College diploma: 💻 Computer Science, 📈 Business
-  Studies, ⚙️ Mechatronics Engineering, and ⚡ Electrical and Electronic
-  Engineering.
+  a different real ViTrox College diploma or degree: 💻 Computer Science, 📈
+  Business Studies, ⚙️ Diploma in Mechatronics Engineering, 🎓 Bachelor of
+  Mechatronics Engineering (Hons, with UCSI University), and ⚡ Electrical and
+  Electronic Engineering. Marketing officer Cindy wanders that floor to point
+  visitors to them.
 - **HUD minimap and play timer**: a small top-down minimap (top-left) shows
   the central courtyard as a reference circle, gold/green dots for
   unvisited/visited info points, blue dots for NPCs, and a white arrow for
