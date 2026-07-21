@@ -44,10 +44,12 @@ mouse, and press `E` near anything interactive.
   from both sides) — the classroom dashboard — shows live progress and score
   across all 10 chapters. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
-  Artificial Intelligence. Over on the ViTrox Education walkway are 3 standalone
-  information kiosks (blue/orange/purple screens, no chairs) with short blurbs
-  on the real ViTrox College Diploma in Computer Science programme — course
-  intro, programme structure, and entry requirements.
+  Artificial Intelligence. Over on the ViTrox Education walkway (not far from
+  Dr Janaka Low) are 4 wooden mailbox-style kiosks — a post, a crate and a
+  coloured icon plaque, Minecraft-signpost style — each with a short blurb on
+  a different real ViTrox College diploma: 💻 Computer Science, 📈 Business
+  Studies, ⚙️ Mechatronics Engineering, and ⚡ Electrical and Electronic
+  Engineering.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
