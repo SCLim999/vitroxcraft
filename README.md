@@ -37,15 +37,18 @@ press `E` near anything interactive.
   officer — walk up and press `E` to talk. Dialogue is voiced with the
   browser's text-to-speech, using a voice that matches each character
   (male/female).
-- **CodingMine — a 10-chapter C/C++ curriculum**: inside the VITROX-lettered
-  building's 4th-floor computer rooms, 10 computers (green screens) are fixed
-  Stations 1–10, each a direct doorway into one chapter — algorithms & syntax,
-  3D coordinates, variables, arrays, `for` loops, `if/else`, `while` loops,
-  functions, decomposition, and an open-ended capstone. 23 questions, 230
-  points total; correct answers are scored live in the HUD, saved to
-  `localStorage`. A big blackboard mounted between the two rooms (visible
-  from both sides) — the classroom dashboard — shows live progress and score
-  across all 10 chapters. Four Computing School lecturers staff the rooms and teach
+- **CodingMine IT quiz stations**: inside the VITROX-lettered building's
+  4th-floor computer rooms, 10 computers each have a *different screen colour*
+  and a *single* multiple-choice question on a different computing topic —
+  Introduction to Computing, C++ Programming, Database, Information Technology,
+  Data Science, Artificial Intelligence, Networking & Internet, Operating
+  System, HTML, and Software Design. Questions are short and fun, aimed at
+  primary/secondary-school level. Correct answers are scored live in the HUD
+  (100 points total), saved to `localStorage`. A big blackboard mounted
+  between the two rooms (visible from both sides) — the classroom dashboard —
+  shows live progress per topic and total score, plus a live leaderboard of
+  every connected player's score whenever a multiplayer room is active. Four
+  Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
   Artificial Intelligence. Scattered through the ground-floor pilotis of the
   ViTrox Education college building — well apart from each other and from Dr
@@ -77,7 +80,7 @@ press `E` near anything interactive.
 ## Full guide
 
 [`MANUAL.md`](MANUAL.md) (Chinese) covers every system in detail — controls,
-each info point's location, the full CodingMine chapter list, multiplayer setup,
+each info point's location, the full CodingMine question list, multiplayer setup,
 and classroom suggestions for teachers.
 
 ## Hosting your own copy
