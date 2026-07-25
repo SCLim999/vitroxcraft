@@ -34,11 +34,14 @@ press `E` near anything interactive.
   lessons on the campus's design concepts (radial layout, solid vs. void, green
   roof, geometric juxtaposition, industry × campus culture, and the computer
   lab, and more).
-- **20 NPCs** — guards, receptionists, engineers, gardeners, chefs, students,
-  the three real ViTrox co-founders, an architect, lecturers, and a marketing
-  officer — walk up and press `E` to talk. Dialogue is voiced with the
-  browser's text-to-speech, using a voice that matches each character
-  (male/female).
+- **21 NPCs** — a tutorial Game Master, guards, receptionists, engineers,
+  gardeners, chefs, students, the three real ViTrox co-founders, an architect,
+  lecturers, and a marketing officer — walk up and press `E` to talk. Dialogue
+  is voiced with the browser's text-to-speech, using a voice that matches each
+  character (male/female). The Game Master stands right at spawn (opposite
+  the security guard) and explains the controls — WASD to move, mouse to
+  look, Space to jump, `F` to fly, number keys/scroll wheel to pick a block,
+  left-click to break, right-click to place, `E` to interact, `Q` for quests.
 - **CodingMine IT quiz stations**: inside the VITROX-lettered building's
   4th-floor computer rooms, all 10 quiz computers are concentrated in the
   first room — the one Ts Dr Lim SC is stationed in — 5 per row, facing each
