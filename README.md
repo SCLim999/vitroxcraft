@@ -10,7 +10,9 @@ on every floor than the original design and free of the radial support columns
 that used to stand in the middle of the walkway, doorless entrances on all four
 sides (E/S/W/N), a mostly-paved (no planters) roof terrace — cleared of paving
 around the stair tower and to the northeast, dropping one level down to the
-slab below there — (with a wide door
+slab below there, with the inner glass wall opened up across that same
+stretch too so no jagged wall fragments trap the gardener NPC standing
+near the boundary — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
