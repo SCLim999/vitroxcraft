@@ -7,8 +7,8 @@ that recreates [ViTrox Campus 2.0 by CYC Architect](https://www.cycarch.com/vitr
 (Batu Kawan, Penang): a central circular courtyard, radial layout, circular
 landscape ramp, a ring building whose internal corridor is a full block wider
 on every floor than the original design, doorless entrances on all four sides
-(E/S/W/N), a paved roof terrace with planters (with a wide door straight
-across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
+(E/S/W/N), a uniformly paved (no planters) roof terrace (with a wide door
+straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
 through the circular form, plus the Campus 3.0 expansion and a ViTrox
