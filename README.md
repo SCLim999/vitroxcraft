@@ -66,7 +66,11 @@ press `E` near anything interactive.
   live leaderboard of every connected player's score whenever a multiplayer
   room is active. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
-  Artificial Intelligence. Scattered through the ground-floor pilotis of the
+  Artificial Intelligence. Talk to the Data Science lecturer, Ms Syira, and
+  her dialogue offers a "▶ Watch animation" button — a small canvas animation
+  showing a data packet bouncing between a client and a server, labeled
+  Request/Response, as a visual teaching aid for the Networking & Internet
+  DataMine topic. Scattered through the ground-floor pilotis of the
   ViTrox Education college building — well apart from each other and from Dr
   Janaka Low (its Principal) — are 7 wooden mailbox-style kiosks — a post, a
   crate and a coloured icon plaque, Minecraft-signpost style — grouped by
