@@ -47,7 +47,7 @@ press `E` near anything interactive.
   hint, and pressing `E` just shows a reminder toast) until you do, so the
   exploration quest can't be completed either. This unlock is saved to
   `localStorage`, so it only has to happen once.
-- **CodingMine IT quiz stations**: inside the VITROX-lettered building's
+- **DataMine IT quiz stations**: inside the VITROX-lettered building's
   4th-floor computer rooms, all 10 quiz computers are concentrated in the
   first room — the one Ts Dr Lim SC is stationed in — 5 per row, facing each
   other across the aisle he stands in. Each has a *different screen colour*
@@ -82,7 +82,7 @@ press `E` near anything interactive.
   the central courtyard as a reference circle, gold/green dots for
   unvisited/visited info points, blue dots for NPCs, and a white arrow for
   the player's position and facing — so it's always obvious which direction
-  to walk. A play timer next to the explore/CodingMine chips counts actual
+  to walk. A play timer next to the explore/DataMine chips counts actual
   play time (paused while a menu or dialogue is open).
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
@@ -99,7 +99,7 @@ press `E` near anything interactive.
 ## Full guide
 
 [`MANUAL.md`](MANUAL.md) (Chinese) covers every system in detail — controls,
-each info point's location, the full CodingMine question list, multiplayer setup,
+each info point's location, the full DataMine question list, multiplayer setup,
 and classroom suggestions for teachers.
 
 ## Hosting your own copy
