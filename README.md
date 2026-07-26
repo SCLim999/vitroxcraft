@@ -13,7 +13,9 @@ band from the stair tower around to the northeast, dropping one level down
 to the slab below there, with the inner glass wall opened up across that
 same stretch too so no jagged wall fragments trap the gardener NPC standing
 near the boundary (only the southeast stretch facing the courtyard keeps
-its original paving) — (with a wide door
+its original paving), with a steel safety railing along that opened-up
+boundary on all three levels (ground floor, 2nd floor, and the terrace),
+except at the four open doorless entrances — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
