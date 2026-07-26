@@ -46,7 +46,7 @@ press `E` near anything interactive.
   every other NPC and golden info block stays locked (the on-screen prompt
   and the reminder toast both point you to the basketball court's south
   gate) until you also complete his hands-on practice: a yellow tile right
-  next to him where you place a block, and a 3-block plank stack you break.
+  next to him where you place a block, and a plank block you break.
   Do both and a "🎉 Practice complete" toast unlocks everything, so the
   exploration quest can't be finished before that either. Progress is saved
   to `localStorage`, so it only has to happen once.
