@@ -6,8 +6,9 @@ VitroxCraft is a standalone, single-file 3D voxel world — [play it live](https
 that recreates [ViTrox Campus 2.0 by CYC Architect](https://www.cycarch.com/vitrox-campus-20)
 (Batu Kawan, Penang): a central circular courtyard, radial layout, circular
 landscape ramp, a ring building whose internal corridor is a full block wider
-on every floor than the original design, doorless entrances on all four sides
-(E/S/W/N), a uniformly paved (no planters) roof terrace (with a wide door
+on every floor than the original design and free of the radial support columns
+that used to stand in the middle of the walkway, doorless entrances on all four
+sides (E/S/W/N), a uniformly paved (no planters) roof terrace (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
