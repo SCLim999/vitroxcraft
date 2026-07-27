@@ -19,27 +19,13 @@ stair tower's own roof-level doorways (north and south) used to be only
 like a wall blocking the terrace walkway — both were widened to match the
 skybridge's 5-block width, and a second door was cut straight through the
 skybridge's own side wall partway along, opening directly onto the ring's
-terrace so players don't have to walk all the way to the tower. restoring the inner/outer curtain walls to their full original design had
+terrace so players don't have to walk all the way to the tower. Restoring the inner/outer curtain walls to their full original design had
 left their parapet caps sitting a block proud of the terrace wherever the
 paving was dropped (reading like scattered raised grey boxes) — the
 parapet is now dropped to match everywhere, so the terrace is one flat,
-uniform level all the way around. A steel safety fence now runs the full
-loop on both the inner (courtyard-facing) and outer edges of the terrace —
-placed by stepping through angles directly rather than filtering the
-block grid by radius, with corner blocks bridging the diagonal jumps and
-the fence built two blocks thick so it reads as one solid band instead of
-a dashed line. It's also generated as the very last step of world-building
-now, since building it earlier meant the lab building, skybridge, and
-VITROX atrium (built afterward) were silently overwriting parts of it —
-with deliberate openings only at every real door and junction (the stair
-tower, the skybridge's side door, the VITROX atrium connection, and
-around Kumar) so a full lap is still walkable. The terrace's ring corridor
-was later widened by another full block on both the inner and outer
-sides, with the entrance's 2nd-floor skybridge and both fences moved out
-to match. One last single-cell gap at a diagonal turn was patched too, so
-apart from the deliberate openings at the stair tower, skybridge door,
-VITROX atrium connection, and Kumar's area, the fence is now a
-completely unbroken loop. The four-storey skybridge used to open a door
+uniform level all the way around. The terrace's ring corridor was later
+widened by another full block on both the inner and outer sides, with
+the entrance's 2nd-floor skybridge moved out to match. The four-storey skybridge used to open a door
 into the tower on its top floor too, but the tower doesn't reach that
 high — there was nothing on the other side — so that floor now dead-ends
 at the skybridge's own solid glass wall instead, connecting to the lab
