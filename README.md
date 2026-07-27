@@ -23,7 +23,11 @@ terrace so players don't have to walk all the way to the tower. restoring the in
 left their parapet caps sitting a block proud of the terrace wherever the
 paving was dropped (reading like scattered raised grey boxes) — the
 parapet is now dropped to match everywhere, so the terrace is one flat,
-uniform level all the way around — (with a wide door
+uniform level all the way around. A steel safety fence now runs the full
+loop on both the inner (courtyard-facing) and outer edges of the terrace,
+with deliberate gaps at every door and junction (the stair tower, the
+skybridge's side door, the VITROX atrium connection, and around Kumar)
+so a full lap is still walkable — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
