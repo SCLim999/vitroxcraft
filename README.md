@@ -28,9 +28,12 @@ loop on both the inner (courtyard-facing) and outer edges of the terrace —
 placed by stepping through angles directly rather than filtering the
 block grid by radius, with corner blocks bridging the diagonal jumps and
 the fence built two blocks thick so it reads as one solid band instead of
-a dashed line — with deliberate openings only at every real door and
-junction (the stair tower, the skybridge's side door, the VITROX atrium
-connection, and around Kumar) so a full lap is still walkable — (with a wide door
+a dashed line. It's also generated as the very last step of world-building
+now, since building it earlier meant the lab building, skybridge, and
+VITROX atrium (built afterward) were silently overwriting parts of it —
+with deliberate openings only at every real door and junction (the stair
+tower, the skybridge's side door, the VITROX atrium connection, and
+around Kumar) so a full lap is still walkable — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
