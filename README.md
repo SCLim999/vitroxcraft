@@ -15,7 +15,9 @@ same stretch too so no jagged wall fragments trap the gardener NPC standing
 near the boundary (only the southeast stretch facing the courtyard keeps
 its original paving), left unguarded along that opened-up boundary (no railing) on purpose, so
 players can walk a full lap around the ring's ground floor, 2nd floor, and
-terrace without anything blocking the loop — (with a wide door
+terrace without anything blocking the loop, and a small leftover wall
+fragment facing the courtyard along the ViTrox Gallery stretch was cleared
+too — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
