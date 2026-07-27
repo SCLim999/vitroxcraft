@@ -19,11 +19,11 @@ stair tower's own roof-level doorways (north and south) used to be only
 like a wall blocking the terrace walkway — both were widened to match the
 skybridge's 5-block width, and a second door was cut straight through the
 skybridge's own side wall partway along, opening directly onto the ring's
-terrace so players don't have to walk all the way to the tower. The boundary
-between the cleared terrace paving and the untouched southeast stretch used
-to alternate height block-by-block (reading, from a distance, like a raised
-grey box sitting in the path) — widened to smooth that transition out —
-(with a wide door
+terrace so players don't have to walk all the way to the tower. restoring the inner/outer curtain walls to their full original design had
+left their parapet caps sitting a block proud of the terrace wherever the
+paving was dropped (reading like scattered raised grey boxes) — the
+parapet is now dropped to match everywhere, so the terrace is one flat,
+uniform level all the way around — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
