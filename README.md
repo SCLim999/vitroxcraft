@@ -24,8 +24,10 @@ left their parapet caps sitting a block proud of the terrace wherever the
 paving was dropped (reading like scattered raised grey boxes) — the
 parapet is now dropped to match everywhere, so the terrace is one flat,
 uniform level all the way around. A steel safety fence now runs the full
-loop on both the inner (courtyard-facing) and outer edges of the terrace,
-with deliberate gaps at every door and junction (the stair tower, the
+loop on both the inner (courtyard-facing) and outer edges of the terrace —
+placed by stepping through angles directly rather than filtering the
+block grid by radius, so the ring has no stray gaps — with deliberate
+openings only at every real door and junction (the stair tower, the
 skybridge's side door, the VITROX atrium connection, and around Kumar)
 so a full lap is still walkable — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
