@@ -13,8 +13,11 @@ band from the stair tower around to the northeast, dropping one level down
 to the slab below there (only the southeast stretch facing the courtyard
 keeps its original paving) — and the ring's inner glass curtain wall restored
 to its original, fully continuous design (the gardener NPC Kumar was moved
-off the wall's boundary onto open terrace so he's no longer boxed in) —
-(with a wide door
+off the wall's boundary onto open terrace so he's no longer boxed in). The
+stair tower's own roof-level doorways (north and south) used to be only
+3 blocks wide, narrower than the skybridge itself, making the tower feel
+like a wall blocking the terrace walkway — both were widened to match the
+skybridge's 5-block width — (with a wide door
 straight across to the VITROX-lettered building's 3rd floor, a widened 2nd-floor
 entrance skybridge, and a wide four-storey glass skybridge from the stair
 tower to the lab building), and rectangular production/office blocks punching
