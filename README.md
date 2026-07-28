@@ -107,8 +107,9 @@ press `E` near anything interactive.
   live leaderboard of every connected player's score whenever a multiplayer
   room is active. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
-  Artificial Intelligence. Two of them offer a "▶ Watch teaching animation"
-  button in their dialogue: Ms Syira (Data Science) shows a data packet
+  Artificial Intelligence. Ms Syira (Data Science) is a Malay Muslim woman,
+  shown wearing a hijab and long dress. Two of them offer a "▶ Watch teaching
+  animation" button in their dialogue: Ms Syira shows a data packet
   bouncing between a client and a server, labeled Request/Response, for the
   Networking & Internet topic; Mr Eng YK (AI) shows a CPU box cycling
   round-robin through four processes (P1–P4), for the Operating System
