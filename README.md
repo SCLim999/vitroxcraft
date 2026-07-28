@@ -130,7 +130,9 @@ press `E` near anything interactive.
   through. On the left side of the main entrance roundabout stand 5 stone
   pillars capped in ViTrox blue, each labelled with one of the company's
   I.A.C.T.G. core values — Integrity, Accountability, Courage, Trust &
-  Respect, and Gratitude & Care — per the official core-values page.
+  Respect, and Gratitude & Care — per the official core-values page. Walk
+  up to one and press `E` to read (and hear, via text-to-speech) the
+  official story behind that value, in the selected language.
 - **HUD minimap, compass and play timer**: a small top-down minimap (top-left)
   shows the central courtyard as a reference circle, gold/green dots for
   unvisited/visited info points, blue dots for NPCs, and a white arrow for
