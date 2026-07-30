@@ -101,7 +101,9 @@ press `E` near anything interactive.
   System, HTML, and Software Design. Questions are short and fun, aimed at
   primary/secondary-school level. Correct answers are scored live in the HUD
   (1 point per question, 10 points total), saved to `localStorage`. The second
-  computer room is now just décor — two rows of plain computers, no quiz. A
+  computer room is mostly décor — two rows of plain computers, no quiz —
+  except one desk with a distinct dark-red screen: walk up and press E to
+  reset the DataMine score and progress (with a confirmation prompt first). A
   big blackboard mounted between the two rooms (visible from both sides) — the
   classroom dashboard — shows live progress per topic and total score, plus a
   live leaderboard of every connected player's score whenever a multiplayer
@@ -133,6 +135,13 @@ press `E` near anything interactive.
   Respect, and Gratitude & Care — per the official core-values page. Walk
   up to one and press `E` to read (and hear, via text-to-speech) the
   official story behind that value, in the selected language.
+- **Mini-game — Free Throw Challenge**: talk to Aina at the basketball court
+  and click "🏀 Shoot some hoops!" in her dialogue to start a 5-shot
+  free-throw challenge. A power meter oscillates left-right; click *Shoot!*
+  (or press it again) when the indicator is in the gold "sweet spot" for a
+  swish, the wider green zone for a rim-in, or outside both for an air ball.
+  After 5 shots a tiered message reacts to the final score, and *Play Again*
+  restarts the round on the same screen.
 - **HUD minimap, compass and play timer**: a small top-down minimap (top-left)
   shows the central courtyard as a reference circle, gold/green dots for
   unvisited/visited info points, blue dots for NPCs, and a white arrow for
