@@ -57,8 +57,8 @@ free exploration rather than a fixed lesson sequence.
 No installation, no build step, no server: `index.html` is nearly the entire
 project, rendered with [Three.js](https://threejs.org) (loaded from a CDN) and
 generated entirely from code — every block, texture, and character is
-procedural, with no external art assets except one background music track
-(`pixelrush.mp3`, alongside `index.html`).
+procedural, with no external art assets except two music tracks
+(`pixelrush.mp3` and `starlightstrut.mp3`, alongside `index.html`).
 
 ## Play
 
@@ -197,7 +197,11 @@ press `E` near anything interactive.
   time taken — 🧠 Geek Player, ⭐ Skilled Player, 🙂 Casual Player, 📘 Advanced
   Player, 🌱 Novice Player, or 🔰 Beginner — with a "🔄 Try Again" button that
   resets progress and the timer for a fresh run (world edits are untouched;
-  that's what the separate reset-world button is for).
+  that's what the separate reset-world button is for). The result screen
+  swaps the background track for a dedicated end-of-challenge piece
+  (`starlightstrut.mp3`), on either ending, and switches back to the regular
+  background music on "Try Again" — following the same music checkbox and
+  `M` mute state as everything else.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
@@ -219,9 +223,9 @@ and classroom suggestions for teachers.
 ## Hosting your own copy
 
 It's static files — clone the repo and open `index.html` directly (keep
-`pixelrush.mp3` alongside it for the background music), or host the folder
-anywhere static (GitHub Pages, Netlify, your own server). No backend, API
-keys, or build tooling required.
+`pixelrush.mp3` and `starlightstrut.mp3` alongside it for the music), or
+host the folder anywhere static (GitHub Pages, Netlify, your own server).
+No backend, API keys, or build tooling required.
 
 ## Credit
 
