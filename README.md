@@ -113,7 +113,9 @@ press `E` near anything interactive.
   room is active. Four Computing School lecturers staff the rooms and teach
   Software Engineering, Data Science, Mobile App Development (Flutter), and
   Artificial Intelligence. Ms Syira (Data Science) is a Malay Muslim woman,
-  shown wearing a hijab and long dress. Two of them offer a "▶ Watch teaching
+  shown wearing a hijab and long dress. All four wander the aisles between
+  the desks rather than standing still, and pause to face you once you walk
+  up. Two of them offer a "▶ Watch teaching
   animation" button in their dialogue: Ms Syira shows a data packet
   bouncing between a client and a server, labeled Request/Response, for the
   Networking & Internet topic; Mr Eng YK (AI) shows a CPU box cycling
