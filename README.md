@@ -54,10 +54,11 @@ Education building. It's built for teaching — architecture concepts,
 company history, and now a full **C/C++ programming curriculum** — through
 free exploration rather than a fixed lesson sequence.
 
-No installation, no build step, no server: `index.html` is the entire project,
-rendered with [Three.js](https://threejs.org) (loaded from a CDN) and generated
-entirely from code — every block, texture, and character is procedural, with no
-external art assets.
+No installation, no build step, no server: `index.html` is nearly the entire
+project, rendered with [Three.js](https://threejs.org) (loaded from a CDN) and
+generated entirely from code — every block, texture, and character is
+procedural, with no external art assets except one background music track
+(`pixelrush.mp3`, alongside `index.html`).
 
 ## Play
 
@@ -172,12 +173,12 @@ press `E` near anything interactive.
   (the basketball court's 4 corner floodlights and the parking-lot streetlights)
   get the same treatment — the lamp head itself doesn't change, but a soft
   warm halo fades in around it at night and disappears by day.
-- **Cheerful background music**: a looping pentatonic melody (generated live
-  from oscillators, no audio files) plays softly once you click "Start
-  Exploring." It's on by default via a checkbox in the start menu, independent
-  from the `M` mute key — `M` silences everything (sound effects, ambience,
-  and music together), while the checkbox lets you keep the ambience but turn
-  off just the tune. The choice is remembered between visits.
+- **Cheerful background music**: a looping track (`pixelrush.mp3`) plays
+  softly once you click "Start Exploring." It's on by default via a checkbox
+  in the start menu, independent from the `M` mute key — `M` silences
+  everything (sound effects, ambience, and music together), while the
+  checkbox lets you keep the ambience but turn off just the music. The
+  choice is remembered between visits.
 - **HUD minimap, compass and play timer**: a small top-down minimap (top-left)
   shows the central courtyard as a reference circle, gold/green dots for
   unvisited/visited info points, blue dots for NPCs, and a white arrow for
@@ -217,9 +218,10 @@ and classroom suggestions for teachers.
 
 ## Hosting your own copy
 
-It's a single static file — clone the repo and open `index.html` directly, or
-host it anywhere static (GitHub Pages, Netlify, your own server). No backend,
-API keys, or build tooling required.
+It's static files — clone the repo and open `index.html` directly (keep
+`pixelrush.mp3` alongside it for the background music), or host the folder
+anywhere static (GitHub Pages, Netlify, your own server). No backend, API
+keys, or build tooling required.
 
 ## Credit
 
