@@ -100,7 +100,9 @@ press `E` near anything interactive.
   Data Science, Artificial Intelligence, Networking & Internet, Operating
   System, HTML, and Software Design. Questions are short and fun, aimed at
   primary/secondary-school level. Correct answers are scored live in the HUD
-  (1 point per question, 10 points total), saved to `localStorage`. The second
+  (1 point per question, 10 points total), saved to `localStorage` — get all
+  10 right and a congratulatory toast calls you out as a future computer
+  scientist. The second
   computer room is mostly décor — two rows of plain computers, no quiz —
   except one desk with a distinct dark-red screen: walk up and press E to
   reset the DataMine score and progress (with a confirmation prompt first). A
