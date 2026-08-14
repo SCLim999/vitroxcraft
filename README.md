@@ -204,6 +204,10 @@ press `E` near anything interactive.
   (`starlightstrut.mp3`), on either ending, and switches back to the regular
   background music on "Try Again" — following the same music checkbox and
   `M` mute state as everything else.
+- **Hidden easter egg**: a 22nd, unlisted NPC is tucked away off the beaten
+  path, with no quest marker pointing to it — finding it and talking to it
+  once triggers a one-time "hidden easter egg found" toast, remembered in
+  `localStorage`. Where exactly it's hiding is left for players to discover.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
