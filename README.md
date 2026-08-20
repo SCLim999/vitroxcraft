@@ -220,6 +220,11 @@ press `E` near anything interactive.
   button (or E/Esc/Enter to skip ahead) returns to the menu any time, and
   whatever it "visits" doesn't touch the real player's saved explore/DataMine
   progress — that state is snapshotted before the demo and restored after.
+  Which stops it visits, aside from a fixed intro/outro card, is reshuffled
+  into a fresh random order every run. A "♾️ Loop playback" checkbox next to
+  the Ad Mode button (remembered in `localStorage`) makes it reshuffle and
+  restart automatically after the outro instead of returning to the menu —
+  handy for an unattended booth screen; "🛑 Exit Demo" still stops it any time.
 - **Trilingual**: the whole UI, every lesson, and all dialogue switch between
   中文 / English / Bahasa Melayu (top-right of the start menu; auto-detected on
   first load).
