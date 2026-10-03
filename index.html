@@ -2017,6 +2017,7 @@ const FACES = [
 ];
 
 const CHUNK = 16;
+const AO_LEVELS = [0.62, 0.76, 0.89, 1.0];   // 0=被两侧夹住的最暗角 … 3=完全开阔
 const chunks = new Map();   // "cx,cz" -> {opaque, trans}
 const dirty = new Set();
 
@@ -2071,14 +2072,33 @@ function buildChunk(ci,cj){
         if(!visible) continue;
         const tile = f===3 ? def.top : (f===2 ? def.bottom : def.side);
         const base = positions.length/3;
-        for(const c of face.corners){
+        // 顶点环境光遮蔽（AO）：墙角、方块交界处自然变暗，让方块有立体感；半透明方块不算
+        const ax = face.dir[0]?0:face.dir[1]?1:2, t1=(ax+1)%3, t2=(ax+2)%3;
+        const ao=[0,0,0,0];
+        for(let k=0;k<4;k++){
+          const c=face.corners[k];
+          if(trans){ ao[k]=3; continue; }
+          const s1=c.p[t1]*2-1, s2=c.p[t2]*2-1;
+          const o=[x+face.dir[0], y+face.dir[1], z+face.dir[2]];
+          const solid=(d1,d2)=>{
+            const q=[o[0],o[1],o[2]]; q[t1]+=d1; q[t2]+=d2;
+            const nb2=get(q[0],q[1],q[2]);
+            return nb2!==B.AIR && !TRANSPARENT[nb2] ? 1 : 0;
+          };
+          const e1=solid(s1,0), e2=solid(0,s2), cr=solid(s1,s2);
+          ao[k] = (e1&&e2) ? 0 : 3-(e1+e2+cr);
+        }
+        for(let k=0;k<4;k++){
+          const c=face.corners[k];
           positions.push(x+c.p[0], y+c.p[1], z+c.p[2]);
           normals.push(...face.dir);
           const [uu,vv] = uvFor(tile, c.uv[0], c.uv[1]);
           uvs.push(uu,vv);
-          colors.push(face.shade,face.shade,face.shade);
+          const sh = face.shade * AO_LEVELS[ao[k]];
+          colors.push(sh,sh,sh);
         }
-        indices.push(base,base+1,base+2, base+2,base+1,base+3);
+        if(ao[0]+ao[3] > ao[1]+ao[2]) indices.push(base,base+1,base+3, base,base+3,base+2);
+        else indices.push(base,base+1,base+2, base+2,base+1,base+3);
       }
     }
     if(indices.length===0){ built[pass]=null; continue; }
