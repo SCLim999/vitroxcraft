@@ -3675,7 +3675,14 @@ function netSendCMScore(){
     net.hostConn.send({t:'cm', score:cmScore, doneCount:cmDone.size});
   }
 }
+/* 网络消息校验：对方发来的数据不可信，格式不对就丢弃，避免一个坏包让整个处理函数抛异常 */
+const isNum = v => typeof v==='number' && isFinite(v);
+function cleanName(n){ return (typeof n==='string' ? n.replace(/[\u0000-\u001f]/g,'').trim().slice(0,12) : '') || t('playerDefault'); }
+function validPos(d){ return isNum(d.x)&&isNum(d.y)&&isNum(d.z)&&isNum(d.yaw); }
+function validSet(d){ return Number.isInteger(d.x)&&Number.isInteger(d.y)&&Number.isInteger(d.z)&&Number.isInteger(d.b); }
+function cleanCM(d){ return { score:isNum(d.score)?d.score:0, doneCount:isNum(d.doneCount)?d.doneCount:0 }; }
 function applyNetSet(d){
+  if(!validSet(d)) return;
   if(INFO_POINTS.some(p=>p.x===d.x&&p.y===d.y&&p.z===d.z)) return;
   set(d.x,d.y,d.z,d.b);
   recordEdit(d.x,d.y,d.z,d.b);
@@ -3730,11 +3737,14 @@ function hostRoom(){
 }
 
 function onHostData(conn, d){
+  if(!d || typeof d!=='object') return;
   if(d.t==='hi'){
+    d.name = cleanName(d.name);
     netNames.set(conn.peer, d.name);
     broadcast({t:'join', id:conn.peer, name:d.name}, conn.peer);
     toast(t('joinToastHost', { name:d.name, c:net.conns.size+1 }));
   }else if(d.t==='pos'){
+    if(!validPos(d)) return;
     updateRemote(conn.peer, d);
     d.id = conn.peer;
     broadcast(d, conn.peer);
@@ -3742,7 +3752,7 @@ function onHostData(conn, d){
     applyNetSet(d);
     broadcast(d, conn.peer);
   }else if(d.t==='cm'){
-    remoteCM.set(conn.peer, { score:d.score, doneCount:d.doneCount });
+    remoteCM.set(conn.peer, cleanCM(d));
     updateCMBoard();
     d.id = conn.peer;
     broadcast(d, conn.peer);
@@ -3778,6 +3788,7 @@ function joinRoom(code){
 }
 
 function onGuestData(d){
+  if(!d || typeof d!=='object') return;
   if(d.t==='init'){
     edits = new Map(d.edits);
     netNames = new Map(d.names);
@@ -3789,12 +3800,13 @@ function onGuestData(d){
     toast(t('joinedWorld', { name:netNames.get(d.hostId)||t('playerDefault') }));
     updateCMBoard();
   }else if(d.t==='pos'){
-    if(d.id!==net.myId) updateRemote(d.id, d);
+    if(d.id!==net.myId && validPos(d)) updateRemote(d.id, d);
   }else if(d.t==='set'){
     applyNetSet(d);
   }else if(d.t==='cm'){
-    if(d.id!==net.myId){ remoteCM.set(d.id, { score:d.score, doneCount:d.doneCount }); updateCMBoard(); }
+    if(d.id!==net.myId){ remoteCM.set(d.id, cleanCM(d)); updateCMBoard(); }
   }else if(d.t==='join'){
+    d.name = cleanName(d.name);
     netNames.set(d.id, d.name);
     toast(t('joinToast', { name:d.name }));
   }else if(d.t==='leave'){
