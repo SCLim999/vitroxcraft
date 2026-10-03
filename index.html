@@ -4798,6 +4798,7 @@ document.addEventListener('mousemove',e=>{
 });
 document.addEventListener('keydown',e=>{
   if(e.code==='KeyE'){
+    if(e.repeat) return;     // 按住 E 会连续触发，弹窗会反复开关
     if(modalOpen){ closeActiveModal(); return; }
     if(playing() && nearInfo>=0){ openInfo(nearInfo); return; }
     if(playing() && nearNpc>=0){ openNpc(nearNpc); return; }
@@ -4829,6 +4830,8 @@ document.addEventListener('keydown',e=>{
   if(e.code==='Space') e.preventDefault();
 });
 document.addEventListener('keyup',e=>keys.delete(e.code));
+addEventListener('blur',()=>keys.clear());   // 切走窗口时收不到 keyup，否则角色会一直自动前进
+document.addEventListener('pointerlockchange',()=>{ if(!document.pointerLockElement) keys.clear(); });
 addEventListener('wheel',e=>{
   if(!locked) return;
   hotSel = (hotSel + (e.deltaY>0?1:-1) + HOT.length)%HOT.length;
