@@ -1686,6 +1686,110 @@ function generate(){
     buildSakuraGarden(177,25,rand);
   }
 
+  /* ---- 6.76 参照规划鸟瞰图新增的四组建筑（东北侧）：圆环天井塔、三角天窗楼、C 形庭院楼、光伏板楼群 ---- */
+  {
+    const mr = mulberry32(9090);          // 独立随机源：不影响其余场景的随机序列
+    // 通用体量：inside(x,z) 决定平面形状，邻格在形状之外的格子就是外墙（也包括中庭的内墙）
+    const volume = (x0,x1,z0,z1,inside,storeys,roofFn,avoid)=>{
+      const yTop=3+storeys*4;
+      for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++){
+        if(!inside(x,z)) continue;
+        for(let y=4;y<SY;y++) set(x,y,z,B.AIR);
+        set(x,3,z,B.TILE);
+        for(let s=1;s<=storeys;s++) set(x,3+s*4,z,B.WHITE);
+        const edge = !inside(x+1,z)||!inside(x-1,z)||!inside(x,z+1)||!inside(x,z-1);
+        if(edge){
+          const pil = (x+z)%6===0;
+          for(let y=4;y<yTop;y++){ const k=(y-4)%4; set(x,y,z,(pil||k===0||k===3)?B.WHITE:B.GLASS); }
+          set(x,yTop,z,B.BLUE); set(x,yTop+1,z,B.WHITE);
+        }else{
+          roofFn(x,z,yTop);
+          if(x%7===0 && z%7===0 && !(avoid && x>=avoid[0]&&x<=avoid[1]&&z>=avoid[2]&&z<=avoid[3]))
+            for(let s=0;s<storeys;s++) placeLamp(x+0.5, 3+s*4+3.3, z+0.5);
+        }
+      }
+    };
+    // 双跑楼梯：每步 1 格高（跳跃高度约 1.3 格），上楼梯口把上一层楼板挖开，一直通到屋顶
+    const stairsZ = (xa,xb,zs,storeys)=>{
+      for(let s=0;s<storeys;s++){
+        const F=3+s*4, lane=(s%2===0)?xa:xb;
+        for(let j=0;j<4;j++){
+          const z=(s%2===0)? zs+j : zs+3-j;
+          set(lane,F+4,z,B.AIR);
+          for(let y=F+1;y<=F+1+j;y++) set(lane,y,z,B.WHITE);
+          if(s===storeys-1) for(let y=F+5;y<=F+6;y++) set(lane,y,z,B.AIR);   // 屋顶口上方不留绿化
+        }
+      }
+    };
+    const doorway = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) for(let y=4;y<=6;y++) set(x,y,z,B.AIR); };
+    const plaza = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) set(x,3,z,B.TILE); };
+
+    // ① 圆环天井塔：4 层圆环体量，中心是通天的圆形天井，屋顶退台绿化 + 光伏环
+    {
+      const cx=100, cz=-50, RO=11, RI=5.5;
+      const inside=(x,z)=>{ const r=Math.hypot(x-cx,z-cz); return r<=RO && r>=RI; };
+      volume(cx-12,cx+12,cz-12,cz+12,inside,4,(x,z,yTop)=>{
+        const r=Math.hypot(x-cx,z-cz);
+        if(r>=6.5&&r<8.5) set(x,yTop+1,z,B.GRASS);
+        else if(r>=8.5&&r<=10) set(x,yTop+1,z,B.SOLAR);
+      },[107,108,-49,-44]);
+      for(let x=cx-5;x<=cx+5;x++) for(let z=cz-5;z<=cz+5;z++) if(Math.hypot(x-cx,z-cz)<RI) set(x,3,z,B.GRASS);
+      doorway(cx-1,cx+1,cz+9,cz+11);      // 南面外墙入口
+      doorway(cx-1,cx+1,cz+4,cz+7);       // 通向天井的内墙门
+      plaza(cx-3,cx+3,cz+12,cz+14);
+      stairsZ(107,108,-48,4);
+      placeTree(cx,cz,mr);
+    }
+    // ② 三角天窗楼：5 层三角形体量，屋顶中央是三角形玻璃采光天窗，四周屋顶绿化
+    {
+      const A=[62,-37], Bv=[86,-37], C=[74,-60];
+      const sign=(px,pz,a,b)=>(px-b[0])*(a[1]-b[1])-(a[0]-b[0])*(pz-b[1]);
+      const inTri=(px,pz,a,b,c)=>{ const d1=sign(px,pz,a,b), d2=sign(px,pz,b,c), d3=sign(px,pz,c,a);
+        return !((d1<0||d2<0||d3<0) && (d1>0||d2>0||d3>0)); };
+      const inside=(x,z)=>inTri(x,z,A,Bv,C);
+      const g=[(A[0]+Bv[0]+C[0])/3,(A[1]+Bv[1]+C[1])/3];
+      const sh=(v,k)=>[g[0]+(v[0]-g[0])*k, g[1]+(v[1]-g[1])*k];
+      const sa=sh(A,0.5), sb=sh(Bv,0.5), sc=sh(C,0.5);
+      volume(60,88,-61,-36,inside,5,(x,z,yTop)=>{
+        if(inTri(x,z,sa,sb,sc)) set(x,yTop,z,B.GLASS);
+        else set(x,yTop+1,z,B.GRASS);
+      },[74,75,-51,-46]);
+      doorway(73,75,-37,-35);
+      plaza(72,76,-34,-32);
+      stairsZ(74,75,-50,5);
+    }
+    // ③ C 形庭院楼：4 层 C 形体量围合一座草坪庭院，开口朝东，屋顶绿化 + 光伏条带
+    {
+      const cx=162, cz=-49, RO=13, RI=6;
+      const inside=(x,z)=>{ const dx=x-cx, dz=z-cz, r=Math.hypot(dx,dz); return r<=RO && r>=RI && !(dx>0 && Math.abs(dz)<=5); };
+      volume(cx-14,cx+14,cz-14,cz+14,inside,4,(x,z,yTop)=>{
+        set(x,yTop+1,z, (x%6<3) ? B.GRASS : B.SOLAR);
+      },[151,152,-53,-48]);
+      for(let x=cx-RI+1;x<=cx+RI+8;x++) for(let z=cz-RI+1;z<=cz+RI-1;z++)
+        if(Math.hypot(x-cx,z-cz)<RI || (x>cx && Math.abs(z-cz)<=5)) set(x,3,z,B.GRASS);
+      doorway(cx-1,cx+1,cz+12,cz+14);     // 南面外墙入口
+      doorway(cx-1,cx+1,cz+5,cz+7);       // 通向庭院的内墙门
+      plaza(cx-3,cx+3,cz+15,cz+17);
+      stairsZ(151,152,-52,4);
+      placeTree(cx,cz,mr); placeTree(cx+9,cz,mr);
+    }
+    // ④ 光伏板楼群：三栋白色板楼，屋顶满铺光伏板（与 Campus 3.0 板楼同一套语言）
+    {
+      const slabs=[
+        { x0:180,x1:196,z0:-62,z1:-52,st:5, dx:187, dz:-52 },
+        { x0:199,x1:213,z0:-62,z1:-52,st:4, dx:205, dz:-52 },
+        { x0:184,x1:200,z0:-46,z1:-38,st:6, dx:191, dz:-38 },
+      ];
+      for(const b of slabs){
+        slab30(b.x0,b.x1,b.z0,b.z1,b.st,[{x0:b.dx,x1:b.dx+2,z0:b.dz,z1:b.dz,y1:6}]);
+        stairsZ(b.x0+1,b.x0+2,b.z0+2,b.st);
+        plaza(b.dx-1,b.dx+3,b.dz+1,b.dz+3);
+      }
+    }
+    // 各栋之间的草地小路：从 Campus 3.0 板楼北墙外（z=-36）东西向贯通
+    for(let x=60;x<=214;x++) if(get(x,3,-36)===B.GRASS) set(x,3,-36,B.PATH);
+  }
+
   /* ---- 6.8 西侧大型停车场（卫星图中的大片车位）---- */
   {
     const LX0=-104, LX1=-71, LZ0=-38, LZ1=38;
