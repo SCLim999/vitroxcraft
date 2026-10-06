@@ -76,6 +76,7 @@ press `E` near anything interactive.
   lessons on the campus's design concepts (radial layout, solid vs. void, green
   roof, geometric juxtaposition, industry × campus culture, and the computer
   lab, and more).
+- **Campus masterplan additions (north-east)** — four more enterable building groups modelled on the masterplan aerial render: a round oculus tower with an open grass atrium and stepped green roof, a triangular building with a glass skylight, a C-shaped block wrapping a lawn courtyard (open to the east), and a cluster of three solar-roof slabs. Each has doors and a switchback stair all the way up to a walkable roof, and indoor lamps that light at night. They have no quests or dialogue yet.
 - **21 NPCs** — a tutorial Game Master, guards, receptionists, engineers,
   gardeners, chefs, students, the three real ViTrox co-founders, an architect,
   lecturers, and a marketing officer — walk up and press `E` to talk. Dialogue
