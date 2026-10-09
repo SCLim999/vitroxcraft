@@ -1724,21 +1724,42 @@ function generate(){
     const doorway = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) for(let y=4;y<=6;y++) set(x,y,z,B.AIR); };
     const plaza = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) set(x,3,z,B.TILE); };
 
-    // ① 圆环天井塔：4 层圆环体量，中心是通天的圆形天井，屋顶退台绿化 + 光伏环
+    // ① 圆形主楼（参照近景效果图）：首层通透玻璃 + 白色基座环，上部铜木色竖向百叶外立面，
+    //    屋顶绿篱女儿墙 + 白色步行环 + 平铺草坪环 + 中央圆形采光天窗，东侧玻璃雨棚接落客环岛
     {
-      const cx=100, cz=-50, RO=11, RI=5.5;
-      const inside=(x,z)=>{ const r=Math.hypot(x-cx,z-cz); return r<=RO && r>=RI; };
-      volume(cx-12,cx+12,cz-12,cz+12,inside,4,(x,z,yTop)=>{
+      const cx=100, cz=-50, RO=11, ST=4, yTop=3+ST*4;
+      const inside=(x,z)=>Math.hypot(x-cx,z-cz)<=RO+0.4;   // +0.4：避免四个正方向各凸出一个孤立方块
+      volume(cx-12,cx+12,cz-12,cz+12,inside,ST,()=>{},[107,108,-49,-44]);
+      for(let x=cx-12;x<=cx+12;x++) for(let z=cz-12;z<=cz+12;z++){
+        if(!inside(x,z)) continue;
         const r=Math.hypot(x-cx,z-cz);
-        if(r>=6.5&&r<8.5) set(x,yTop+1,z,B.GRASS);
-        else if(r>=8.5&&r<=10) set(x,yTop+1,z,B.SOLAR);
-      },[107,108,-49,-44]);
-      for(let x=cx-5;x<=cx+5;x++) for(let z=cz-5;z<=cz+5;z++) if(Math.hypot(x-cx,z-cz)<RI) set(x,3,z,B.GRASS);
-      doorway(cx-1,cx+1,cz+9,cz+11);      // 南面外墙入口
-      doorway(cx-1,cx+1,cz+4,cz+7);       // 通向天井的内墙门
+        const edge = !inside(x+1,z)||!inside(x-1,z)||!inside(x,z+1)||!inside(x,z-1);
+        if(edge){
+          const fin = Math.floor((Math.atan2(z-cz,x-cx)+Math.PI)*RO*0.9)%2===0;
+          for(let y=4;y<=7;y++) set(x,y,z, y===7 ? B.WHITE : ((x+z)%5===0 ? B.WHITE : B.GLASS));  // 首层：玻璃 + 稀疏白柱，顶部白色基座环
+          for(let y=8;y<yTop;y++) set(x,y,z, fin ? B.PLANK : B.GLASS);                          // 上部：连续竖向木色百叶
+          set(x,yTop,z,B.WHITE);
+          set(x,yTop+1,z,B.LEAF);                                                               // 屋顶边缘绿篱
+        }else if(r<=2.5) set(x,yTop,z,B.GLASS);                // 中央圆形采光天窗
+        else if(r>3.5 && r<=7.5) set(x,yTop,z,B.GRASS);        // 草坪环与屋面齐平（不露出泥土侧面）
+      }
+      doorway(cx-1,cx+1,cz+9,cz+11);      // 南面入口
       plaza(cx-3,cx+3,cz+12,cz+14);
-      stairsZ(107,108,-48,4);
-      placeTree(cx,cz,mr);
+      doorway(cx+9,cx+11,cz-1,cz+1);      // 东面主入口
+      // 玻璃雨棚（钢框 + 两根立柱）
+      for(let x=cx+12;x<=cx+16;x++) for(let z=cz-3;z<=cz+3;z++){
+        set(x,3,z,B.TILE);
+        set(x,7,z, (x===cx+16||z===cz-3||z===cz+3) ? B.STEEL : B.GLASS);
+      }
+      for(const pz of [cz-3,cz+3]) for(let y=4;y<=6;y++) set(cx+16,y,pz,B.STEEL);
+      // 落客环岛：沥青环道 + 中央草地种一棵树
+      const rx=cx+21;
+      for(let x=rx-5;x<=rx+5;x++) for(let z=cz-5;z<=cz+5;z++){
+        const rr=Math.hypot(x-rx,z-cz);
+        if(rr<=5) set(x,3,z, rr<2.2 ? B.GRASS : B.ASPHALT);
+      }
+      placeTree(rx,cz,mr);
+      stairsZ(107,108,-48,ST);
     }
     // ② 三角天窗楼：5 层三角形体量，屋顶中央是三角形玻璃采光天窗，四周屋顶绿化
     {
