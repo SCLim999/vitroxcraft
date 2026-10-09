@@ -130,7 +130,7 @@ press `E` near anything interactive.
   Engineering), then 3 bachelor's degrees (🎓 Mechatronics Engineering Hons
   with UCSI University, 🔌 Electronic Engineering Hons and 🤖 Computer Science
   (Intelligent Computing) Hons — both marked *Coming Soon* — with Universiti
-  Sains Malaysia). Marketing officer Cindy wanders that floor to point
+  Sains Malaysia). On the walkway leading in from Campus 3.0, a **College Story trail** of 5 more kiosks tells ViTrox College's story in order — ViTrox Academy's start in 2020, the first diploma class and the "13 Pioneers" in 2023, learning by doing alongside real engineers, the USM and UCSI degree partnerships in 2026, and the planned ViTrox Institute of Technology. Marketing officer Cindy wanders that floor to point
   visitors to them. Just south of the building, across a stretch of lawn, is
   a small **sakura garden**: a cross-shaped stone path around a central
   lantern, four benches, and a ring of 8 pink cherry-blossom trees with
