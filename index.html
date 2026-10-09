@@ -1117,6 +1117,7 @@ function placePineTree(x,z,rand,baseH=6){          // 松树：主干笔直，�
   set(x,top,z,B.LEAF); set(x,top+1,z,B.LEAF);
 }
 
+const ONSEN = { x:177, z:53 };   // 温泉池中心（日式庭园南侧）
 /* 日式庭园装饰（围绕樱花园）：北面鸟居、石灯笼、东侧锦鲤池 + 红色拱桥、西侧枯山水、南侧茶室、四角竹林、红枫 */
 function decorateJapaneseGarden(cx,cz){
   const jr = mulberry32(2468);                 // 独立随机源，不影响其余场景
@@ -1197,6 +1198,52 @@ function decorateJapaneseGarden(cx,cz){
     set(cx,5,cz+15,B.PLANK);                                  // 矮茶桌
     placeLamp(cx+0.5, 7.6, cz+15.5);
     toro(x0-2,z0); toro(x1+2,z0);
+  }
+
+  // ⑥ 温泉（露天风吕）：茶室南侧，木栅栏围合，石块围边的热水池、更衣小屋、木凳与水桶，入口挂「♨」牌（蒸汽见 buildOnsenDecor）
+  {
+    const ox=ONSEN.x, oz=ONSEN.z, rx=6.5, rz=4.5;
+    const X0=ox-12, X1=ox+12, Z0=oz-9, Z1=oz+9;
+    for(let x=cx+6;x<=cx+7;x++) for(let z=cz+9;z<Z0;z++) if(grass(x,z)) set(x,3,z,B.PATH);     // 从樱花园步道接过来
+    for(let x=X0;x<=X1;x++) for(let z=Z0;z<=Z1;z++){
+      if(!grass(x,z)) continue;
+      const e=Math.hypot((x-ox)/rx,(z-oz)/rz);
+      if(e<=1){ set(x,2,z,B.STONE); set(x,3,z,B.WATER); }                       // 浅池：站在池里水没到腰
+      else if(e<=1.28){
+        set(x,3,z,B.STONE);
+        const entry = z<oz && Math.abs(x-ox)<=1;                                  // 北面留一个入池口
+        if(!entry && jr()<0.4) set(x,4,z, jr()<0.5 ? B.STONE : B.GRAY);         // 围边大石
+      }else set(x,3,z, jr()<0.5 ? B.STONE : B.GRAY);                            // 石板铺地
+    }
+    // 池后方的景石
+    for(const [dx,dz,h] of [[0,6,3],[1,6,2],[-1,6,1],[3,5,1]]) for(let y=4;y<4+h;y++) set(ox+dx,y,oz+dz,B.STONE);
+    // 木栅栏（东、西、南三面，北面朝庭园开放）
+    for(let x=X0-1;x<=X1+1;x++) for(let z=Z0;z<=Z1+1;z++){
+      const side = x===X0-1 || x===X1+1 || z===Z1+1;
+      if(!side) continue;
+      const post = (x+z)%3===0;
+      for(let y=4;y<=(post?6:5);y++) set(x,y,z, post ? B.LOG : B.PLANK);
+    }
+    // 入口门框 + 门楣
+    const ex=cx+6;                                   // 入口正对接过来的步道（x=ex..ex+1）
+    for(const px of [ex-2,ex+3]) for(let y=4;y<=6;y++) set(px,y,Z0-1,B.LOG);
+    for(let x=ex-3;x<=ex+4;x++) set(x,7,Z0-1,B.BLACK);
+    // 更衣小屋（西南角，门朝东）
+    {
+      const hx0=X0+1, hx1=X0+5, hz0=Z1-5, hz1=Z1-1;
+      for(let x=hx0;x<=hx1;x++) for(let z=hz0;z<=hz1;z++){
+        set(x,3,z,B.PLANK);
+        const wall = x===hx0||x===hx1||z===hz0||z===hz1;
+        for(let y=4;y<=6;y++) set(x,y,z, wall ? (y===5 && !(x===hx0||x===hx1) ? B.WHITE : B.PLANK) : B.AIR);
+      }
+      for(let z=hz0+1;z<=hz0+2;z++) for(let y=4;y<=5;y++) set(hx1,y,z,B.AIR);   // 门
+      for(let x=hx0-1;x<=hx1+1;x++) for(let z=hz0-1;z<=hz1+1;z++) set(x,7,z,B.BLACK);
+      for(let x=hx0;x<=hx1;x++) for(let z=hz0;z<=hz1;z++) set(x,8,z,B.GRAY);
+      placeLamp(hx0+2.5, 6.6, hz0+2.5);
+    }
+    // 木凳与水桶（池东侧冲洗区）
+    for(const dz of [-3,0,3]){ set(X1-2,4,oz+dz,B.PLANK); set(X1-1,4,oz+dz,B.LOG); }
+    toro(X0+1,Z0+1); toro(X1-1,Z0+1); toro(X1-1,Z1-1);
   }
 
   // ⑤ 四角竹林
@@ -1935,7 +1982,7 @@ function generate(){
     if(x>-40&&x<-6&&z>-54&&z<-22) continue;     // 实验楼
     if(x>78&&z>22&&z<46) continue;              // Campus 3.0 绿篱区
     if(x>140&&z>-25&&z<15) continue;            // ViTrox Education 飘带大楼场地
-    if(x>153&&x<202&&z>9&&z<46) continue;       // 樱花 / 日式庭园
+    if(x>153&&x<202&&z>9&&z<64) continue;       // 樱花 / 日式庭园 / 温泉
     if(Math.abs(x)<7&&z>20) continue;           // 主入口步道
     if(get(x,3,z)!==B.GRASS) continue;
     placeTree(x,z,rand); planted++;
@@ -2594,6 +2641,35 @@ function refreshCMTerminalTags(){
     st._tag.material.map = nameTagTexture((i+1) + '. ' + CM_CHAPTERS[st.chapterIdx].tag[lang]);
     st._tag.material.needsUpdate = true;
   });
+}
+/* ---- 温泉蒸汽（缓慢上升、逐渐变大变淡的半透明白雾）+ 入口「♨」牌 ---- */
+const onsenSteam=[];
+function buildOnsenDecor(){
+  const c=document.createElement('canvas'); c.width=c.height=64;
+  const g=c.getContext('2d');
+  const grd=g.createRadialGradient(32,32,2,32,32,30);
+  grd.addColorStop(0,'rgba(255,255,255,0.9)'); grd.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=grd; g.fillRect(0,0,64,64);
+  const tex=new THREE.CanvasTexture(c);
+  const rnd=mulberry32(1357);
+  for(let i=0;i<14;i++){
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({ map:tex, transparent:true, depthWrite:false, opacity:0 }));
+    s.userData={ x:ONSEN.x+0.5+(rnd()*2-1)*5, z:ONSEN.z+0.5+(rnd()*2-1)*3.2, t:rnd()*4 };
+    scene.add(s); onsenSteam.push(s);
+  }
+  const sign=new THREE.Sprite(new THREE.SpriteMaterial({ map:galleryLabel('♨ Onsen 温泉') }));
+  sign.scale.set(3.2,0.8,1);
+  sign.position.set(ONSEN.x+7, 8.4, ONSEN.z-9.5);   // 挂在入口门楣上方
+  scene.add(sign);
+}
+function animateOnsenSteam(dt){
+  for(const s of onsenSteam){
+    const u=s.userData; u.t=(u.t+dt*0.5)%4;
+    const k=u.t/4;                                  // 0→1：升起、变大、淡出
+    s.position.set(u.x+Math.sin(u.t*1.3)*0.3, 3.7+k*3.2, u.z);
+    s.scale.setScalar(1.2+k*2.2);
+    s.material.opacity = 0.45*Math.sin(Math.PI*k);
+  }
 }
 function buildIactgLabels(){                          // I.A.C.T.G. 柱列的浮空文字牌
   const grp = new THREE.Group(); scene.add(grp);
@@ -5256,6 +5332,7 @@ buildCarMeshes();
 buildCMBoard();
 buildDiplomaKiosks();
 buildIactgLabels();
+buildOnsenDecor();
 respawn();
 
 const posEl=document.getElementById('pos');
@@ -5427,6 +5504,7 @@ function animate(){
   animateRemotes(dt);
   animateNpcs(dt);
   updateDayNight(elapsed); skyDome.position.copy(camera.position);
+  animateOnsenSteam(dt);
   for(const c of clouds){
     c.position.x += dt*1.4;
     if(c.position.x>165) c.position.x=-165;

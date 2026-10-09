@@ -138,7 +138,11 @@ press `E` near anything interactive.
   **Japanese garden**: a red torii gate at the north entrance, stone lanterns that
   glow at night, an oval koi pond (red, gold and white koi under the water) crossed
   by a red arched bridge, a raked-gravel zen rock garden, a dark-roofed tea house
-  with shoji screens, bamboo groves at the corners and red maples. Pure scenery,
+  with shoji screens, bamboo groves at the corners and red maples. Just south of the tea house, a
+  path leads through a "♨ Onsen 温泉" gate into an open-air **onsen**: a fenced,
+  stone-paved yard with a waist-deep, boulder-edged hot spring pool (you can step
+  in) with steam drifting up from it, a changing hut, and a row of wooden stools
+  and buckets. Pure scenery,
   free to wander through. On the left side of the main entrance roundabout stand 5 stone
   pillars capped in ViTrox blue, each labelled with one of the company's
   I.A.C.T.G. core values — Integrity, Accountability, Courage, Trust &
