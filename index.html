@@ -857,16 +857,16 @@ function blockName(b){
 const B = { AIR:0, GRASS:1, DIRT:2, STONE:3, WHITE:4, GLASS:5, PLANK:6,
             LOG:7, LEAF:8, WATER:9, TILE:10, BLUE:11, INFO:12, PATH:13, GRAY:14,
             SOLAR:15, STEEL:16, ASPHALT:17, COURT_G:18, COURT_R:19,
-            RED:20, BLACK:21, YELLOW:22, BLOSSOM:23 };
+            RED:20, BLACK:21, YELLOW:22, BLOSSOM:23, ONSEN:24 };
 
-const TRANSPARENT = { [B.GLASS]:true, [B.WATER]:true };
-const NONSOLID    = { [B.AIR]:true, [B.WATER]:true };
+const TRANSPARENT = { [B.GLASS]:true, [B.WATER]:true, [B.ONSEN]:true };
+const NONSOLID    = { [B.AIR]:true, [B.WATER]:true, [B.ONSEN]:true };
 
 // 纹理编号
 const T = { GRASS_TOP:0, GRASS_SIDE:1, DIRT:2, STONE:3, WHITE:4, GLASS:5, PLANK:6,
             LOG_SIDE:7, LOG_TOP:8, LEAF:9, WATER:10, TILE:11, BLUE:12, INFO:13,
             PATH:14, GRAY:15, SOLAR:16, STEEL:17, ASPHALT:18, COURT_G:19,
-            COURT_R:20, RED:21, BLACK:22, YELLOW:23, BLOSSOM:24 };
+            COURT_R:20, RED:21, BLACK:22, YELLOW:23, BLOSSOM:24, ONSEN:25 };
 
 const BLOCK_DEF = {
   [B.GRASS]: { name:'草方块',   top:T.GRASS_TOP, side:T.GRASS_SIDE, bottom:T.DIRT },
@@ -878,6 +878,7 @@ const BLOCK_DEF = {
   [B.LOG]:   { name:'原木',     top:T.LOG_TOP, side:T.LOG_SIDE, bottom:T.LOG_TOP },
   [B.LEAF]:  { name:'树叶',     top:T.LEAF,  side:T.LEAF,  bottom:T.LEAF },
   [B.WATER]: { name:'水',       top:T.WATER, side:T.WATER, bottom:T.WATER },
+  [B.ONSEN]: { name:'温泉水',   top:T.ONSEN, side:T.ONSEN, bottom:T.ONSEN },
   [B.TILE]:  { name:'铺地砖',   top:T.TILE,  side:T.TILE,  bottom:T.TILE },
   [B.BLUE]:  { name:'ViTrox 蓝', top:T.BLUE,  side:T.BLUE,  bottom:T.BLUE },
   [B.INFO]:  { name:'信息方块', top:T.INFO,  side:T.INFO,  bottom:T.INFO },
@@ -967,6 +968,10 @@ function noisy(ox,oy,r,g,b,v,rand,alpha){
   paintTile(T.WATER, (ox,oy)=>{
     actx.clearRect(ox,oy,16,16);
     noisy(ox,oy,52,118,205,12,rand,0.78);
+  });
+  paintTile(T.ONSEN, (ox,oy)=>{                 // 温泉水：乳白偏青绿、几乎不透明
+    actx.clearRect(ox,oy,16,16);
+    noisy(ox,oy,168,214,206,10,rand,0.9);
   });
   paintTile(T.TILE, (ox,oy)=>{
     noisy(ox,oy,205,206,210,6,rand);
@@ -1208,15 +1213,23 @@ function decorateJapaneseGarden(cx,cz){
     for(let x=X0;x<=X1;x++) for(let z=Z0;z<=Z1;z++){
       if(!grass(x,z)) continue;
       const e=Math.hypot((x-ox)/rx,(z-oz)/rz);
-      if(e<=1){ set(x,2,z,B.STONE); set(x,3,z,B.WATER); }                       // 浅池：站在池里水没到腰
+      if(e<=1){ set(x,2,z,B.STONE); set(x,3,z,B.ONSEN); }                       // 浅池：乳白温泉水，站在池里水没到腰
       else if(e<=1.28){
-        set(x,3,z,B.STONE);
         const entry = z<oz && Math.abs(x-ox)<=1;                                  // 北面留一个入池口
-        if(!entry && jr()<0.4) set(x,4,z, jr()<0.5 ? B.STONE : B.GRAY);         // 围边大石
-      }else set(x,3,z, jr()<0.5 ? B.STONE : B.GRAY);                            // 石板铺地
+        const spout = Math.abs(x-ox)<=1 && z>oz;                                  // 竹筒出水口前不挡视线
+        const k=jr();
+        set(x,3,z, k<0.3 ? B.GRASS : B.STONE);                                    // 池边一圈石头夹杂青苔
+        if(!entry && !spout){
+          const m=jr();
+          if(m<0.18) set(x,4,z,B.STONE);                                          // 零星的低矮圆石
+          else if(m<0.32) set(x,4,z,B.LEAF);                                      // 池边小灌木
+        }
+      }else if(e<=1.6) set(x,3,z, jr()<0.35 ? B.GRASS : B.STONE);               // 外圈：苔藓过渡到石板
+      else set(x,3,z, jr()<0.5 ? B.STONE : B.GRAY);                             // 石板铺地
     }
     // 池后方的景石
-    for(const [dx,dz,h] of [[0,6,3],[1,6,2],[-1,6,1],[3,5,1]]) for(let y=4;y<4+h;y++) set(ox+dx,y,oz+dz,B.STONE);
+    for(const [dx,dz,h] of [[0,6,3],[1,6,2],[-1,6,2],[2,6,1],[-2,7,1],[0,7,2]]) for(let y=4;y<4+h;y++) set(ox+dx,y,oz+dz,B.STONE);
+    set(ox+1,6,oz+6,B.LEAF); set(ox-2,5,oz+7,B.LEAF);                           // 景石上的青苔
     // 木栅栏（东、西、南三面，北面朝庭园开放）
     for(let x=X0-1;x<=X1+1;x++) for(let z=Z0;z<=Z1+1;z++){
       const side = x===X0-1 || x===X1+1 || z===Z1+1;
@@ -2433,7 +2446,7 @@ const clouds=[];
 {
   const rand = mulberry32(777);
   const cmat = new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.85 });
-  for(let i=0;i<14;i++){
+  for(let i=0;i<28;i++){
     const w=10+rand()*16, d=8+rand()*12;
     const m = new THREE.Mesh(new THREE.BoxGeometry(w,2,d), cmat);
     m.position.set((rand()*2-1)*155, 46+rand()*14, (rand()*2-1)*130);
@@ -2644,6 +2657,7 @@ function refreshCMTerminalTags(){
 }
 /* ---- 温泉蒸汽（缓慢上升、逐渐变大变淡的半透明白雾）+ 入口「♨」牌 ---- */
 const onsenSteam=[];
+let onsenStream=null;
 function buildOnsenDecor(){
   const c=document.createElement('canvas'); c.width=c.height=64;
   const g=c.getContext('2d');
@@ -2657,6 +2671,28 @@ function buildOnsenDecor(){
     s.userData={ x:ONSEN.x+0.5+(rnd()*2-1)*5, z:ONSEN.z+0.5+(rnd()*2-1)*3.2, t:rnd()*4 };
     scene.add(s); onsenSteam.push(s);
   }
+  // 竹筒出水口（从景石顶部伸向池面）+ 下落水流 + 落水处的水花
+  {
+    const a=new THREE.Vector3(ONSEN.x+0.5, 7.15, ONSEN.z+6.3), b=new THREE.Vector3(ONSEN.x+0.5, 6.75, ONSEN.z+4.2);
+    const len=a.distanceTo(b);
+    const bam=new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.13,len,10), new THREE.MeshBasicMaterial({color:0x7fa83a}));
+    bam.position.copy(a).add(b).multiplyScalar(0.5);
+    bam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), b.clone().sub(a).normalize());
+    scene.add(bam);
+    for(const t of [0.3,0.65]){                                  // 竹节
+      const ring=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.06,10), new THREE.MeshBasicMaterial({color:0x5c7d26}));
+      ring.position.copy(a).lerp(b,t); ring.quaternion.copy(bam.quaternion); scene.add(ring);
+    }
+    const post=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,2.8,8), new THREE.MeshBasicMaterial({color:0x6b8f2e}));
+    post.position.set(ONSEN.x+0.5, 5.4, ONSEN.z+4.9); scene.add(post);   // 支撑竹竿
+    onsenStream=new THREE.Mesh(new THREE.BoxGeometry(0.1,2.75,0.1), new THREE.MeshBasicMaterial({color:0xe6fbff, transparent:true, opacity:0.7}));
+    onsenStream.position.set(b.x, b.y-1.4, b.z-0.08); scene.add(onsenStream);
+    onsenStream.userData.splash=[];
+    for(let i=0;i<5;i++){
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({ map:tex, transparent:true, depthWrite:false, opacity:0 }));
+      sp.userData.t=i*0.24; scene.add(sp); onsenStream.userData.splash.push(sp);
+    }
+  }
   const sign=new THREE.Sprite(new THREE.SpriteMaterial({ map:galleryLabel('♨ Onsen 温泉') }));
   sign.scale.set(3.2,0.8,1);
   sign.position.set(ONSEN.x+7, 8.4, ONSEN.z-9.5);   // 挂在入口门楣上方
@@ -2667,8 +2703,18 @@ function animateOnsenSteam(dt){
     const u=s.userData; u.t=(u.t+dt*0.5)%4;
     const k=u.t/4;                                  // 0→1：升起、变大、淡出
     s.position.set(u.x+Math.sin(u.t*1.3)*0.3, 3.7+k*3.2, u.z);
-    s.scale.setScalar(1.2+k*2.2);
-    s.material.opacity = 0.45*Math.sin(Math.PI*k);
+    s.scale.setScalar(1.6+k*2.8);
+    s.material.opacity = 0.62*Math.sin(Math.PI*k);
+  }
+  if(onsenStream){
+    onsenStream.material.opacity = 0.6 + 0.15*Math.sin(performance.now()*0.02);
+    for(const sp of onsenStream.userData.splash){               // 落水点向外溅开的小水花
+      sp.userData.t=(sp.userData.t+dt)%1.2;
+      const k=sp.userData.t/1.2, ang=sp.userData.t*9;
+      sp.position.set(onsenStream.position.x+Math.cos(ang)*0.5*k, 4.05+0.35*Math.sin(Math.PI*k), onsenStream.position.z+Math.sin(ang)*0.5*k);
+      sp.scale.setScalar(0.35+0.5*k);
+      sp.material.opacity = 0.7*(1-k);
+    }
   }
 }
 function buildIactgLabels(){                          // I.A.C.T.G. 柱列的浮空文字牌
@@ -2968,7 +3014,7 @@ function raycast(maxDist){
   let face=[0,0,0], t=0;
   while(t<=maxDist){
     const b=get(x,y,z);
-    if(b!==B.AIR && b!==B.WATER) return {x,y,z,block:b,face};
+    if(b!==B.AIR && b!==B.WATER && b!==B.ONSEN) return {x,y,z,block:b,face};
     if(tMX<tMY && tMX<tMZ){ x+=stepX; t=tMX; tMX+=tDX; face=[-stepX,0,0]; }
     else if(tMY<tMZ){ y+=stepY; t=tMY; tMY+=tDY; face=[0,-stepY,0]; }
     else { z+=stepZ; t=tMZ; tMZ+=tDZ; face=[0,0,-stepZ]; }
@@ -5248,7 +5294,7 @@ function doPlace(){
   const tx=hit.x+hit.face[0], ty=hit.y+hit.face[1], tz=hit.z+hit.face[2];
   if(!inBounds(tx,ty,tz)) return;
   const cur=get(tx,ty,tz);
-  if(cur!==B.AIR && cur!==B.WATER) return;
+  if(cur!==B.AIR && cur!==B.WATER && cur!==B.ONSEN) return;
   // 不允许把方块放进自己身体里
   const p=player.pos;
   const overlap = tx+1>p.x-player.W && tx<p.x+player.W &&

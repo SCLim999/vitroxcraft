@@ -140,8 +140,9 @@ press `E` near anything interactive.
   by a red arched bridge, a raked-gravel zen rock garden, a dark-roofed tea house
   with shoji screens, bamboo groves at the corners and red maples. Just south of the tea house, a
   path leads through a "♨ Onsen 温泉" gate into an open-air **onsen**: a fenced,
-  stone-paved yard with a waist-deep, boulder-edged hot spring pool (you can step
-  in) with steam drifting up from it, a changing hut, and a row of wooden stools
+  stone-paved yard with a waist-deep hot spring pool of milky turquoise water (you
+  can step in), ringed by mossy stones and small shrubs, with thick steam drifting
+  up and a bamboo spout pouring into it from a mossy feature rock, a changing hut, and a row of wooden stools
   and buckets. Pure scenery,
   free to wander through. On the left side of the main entrance roundabout stand 5 stone
   pillars capped in ViTrox blue, each labelled with one of the company's
