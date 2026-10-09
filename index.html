@@ -857,16 +857,16 @@ function blockName(b){
 const B = { AIR:0, GRASS:1, DIRT:2, STONE:3, WHITE:4, GLASS:5, PLANK:6,
             LOG:7, LEAF:8, WATER:9, TILE:10, BLUE:11, INFO:12, PATH:13, GRAY:14,
             SOLAR:15, STEEL:16, ASPHALT:17, COURT_G:18, COURT_R:19,
-            RED:20, BLACK:21, YELLOW:22, BLOSSOM:23 };
+            RED:20, BLACK:21, YELLOW:22, BLOSSOM:23, ONSEN:24 };
 
-const TRANSPARENT = { [B.GLASS]:true, [B.WATER]:true };
-const NONSOLID    = { [B.AIR]:true, [B.WATER]:true };
+const TRANSPARENT = { [B.GLASS]:true, [B.WATER]:true, [B.ONSEN]:true };
+const NONSOLID    = { [B.AIR]:true, [B.WATER]:true, [B.ONSEN]:true };
 
 // 纹理编号
 const T = { GRASS_TOP:0, GRASS_SIDE:1, DIRT:2, STONE:3, WHITE:4, GLASS:5, PLANK:6,
             LOG_SIDE:7, LOG_TOP:8, LEAF:9, WATER:10, TILE:11, BLUE:12, INFO:13,
             PATH:14, GRAY:15, SOLAR:16, STEEL:17, ASPHALT:18, COURT_G:19,
-            COURT_R:20, RED:21, BLACK:22, YELLOW:23, BLOSSOM:24 };
+            COURT_R:20, RED:21, BLACK:22, YELLOW:23, BLOSSOM:24, ONSEN:25 };
 
 const BLOCK_DEF = {
   [B.GRASS]: { name:'草方块',   top:T.GRASS_TOP, side:T.GRASS_SIDE, bottom:T.DIRT },
@@ -878,6 +878,7 @@ const BLOCK_DEF = {
   [B.LOG]:   { name:'原木',     top:T.LOG_TOP, side:T.LOG_SIDE, bottom:T.LOG_TOP },
   [B.LEAF]:  { name:'树叶',     top:T.LEAF,  side:T.LEAF,  bottom:T.LEAF },
   [B.WATER]: { name:'水',       top:T.WATER, side:T.WATER, bottom:T.WATER },
+  [B.ONSEN]: { name:'温泉水',   top:T.ONSEN, side:T.ONSEN, bottom:T.ONSEN },
   [B.TILE]:  { name:'铺地砖',   top:T.TILE,  side:T.TILE,  bottom:T.TILE },
   [B.BLUE]:  { name:'ViTrox 蓝', top:T.BLUE,  side:T.BLUE,  bottom:T.BLUE },
   [B.INFO]:  { name:'信息方块', top:T.INFO,  side:T.INFO,  bottom:T.INFO },
@@ -967,6 +968,10 @@ function noisy(ox,oy,r,g,b,v,rand,alpha){
   paintTile(T.WATER, (ox,oy)=>{
     actx.clearRect(ox,oy,16,16);
     noisy(ox,oy,52,118,205,12,rand,0.78);
+  });
+  paintTile(T.ONSEN, (ox,oy)=>{                 // 温泉水：乳白偏青绿、几乎不透明
+    actx.clearRect(ox,oy,16,16);
+    noisy(ox,oy,168,214,206,10,rand,0.9);
   });
   paintTile(T.TILE, (ox,oy)=>{
     noisy(ox,oy,205,206,210,6,rand);
@@ -1117,6 +1122,152 @@ function placePineTree(x,z,rand,baseH=6){          // 松树：主干笔直，�
   set(x,top,z,B.LEAF); set(x,top+1,z,B.LEAF);
 }
 
+const ONSEN = { x:177, z:53 };   // 温泉池中心（日式庭园南侧）
+/* 日式庭园装饰（围绕樱花园）：北面鸟居、石灯笼、东侧锦鲤池 + 红色拱桥、西侧枯山水、南侧茶室、四角竹林、红枫 */
+function decorateJapaneseGarden(cx,cz){
+  const jr = mulberry32(2468);                 // 独立随机源，不影响其余场景
+  const grass = (x,z)=>get(x,3,z)===B.GRASS && get(x,4,z)===B.AIR;
+  const toro = (x,z)=>{                        // 石灯笼：夜晚点亮
+    if(!grass(x,z)) return;
+    set(x,4,z,B.STONE); set(x,5,z,B.GRAY); set(x,6,z,B.YELLOW); set(x,7,z,B.STONE);
+    placeOutdoorLamp(x+0.5, 6.5, z+0.5);
+  };
+  placeOutdoorLamp(cx+0.5, 7.5, cz+0.5);       // 中央石灯也在夜晚亮起
+
+  // ① 北面入口鸟居（跨在通往 ViTrox Education 的步道上）
+  {
+    const z=cz-12;
+    for(const px of [cx-3,cx+3]) for(let y=4;y<=8;y++) set(px,y,z,B.RED);
+    for(let x=cx-2;x<=cx+2;x++) set(x,7,z,B.RED);           // 贯（nuki）
+    for(let x=cx-4;x<=cx+4;x++) set(x,8,z,B.RED);           // 岛木
+    for(let x=cx-5;x<=cx+5;x++) set(x,9,z,B.BLACK);         // 笠木（kasagi）
+    toro(cx-4,cz-11); toro(cx+4,cz-11);
+  }
+
+  // ② 东侧锦鲤池（椭圆）+ 红色拱桥
+  {
+    const px=cx+17, rx=5.5, rz=4.5;
+    for(let x=cx+11;x<=px-6;x++) for(let z=cz-1;z<=cz+1;z++) if(grass(x,z)) set(x,3,z,B.PATH);
+    for(let x=px-7;x<=px+7;x++) for(let z=cz-6;z<=cz+6;z++){
+      const e=Math.hypot((x-px)/rx,(z-cz)/rz);
+      if(e<=1){
+        set(x,2,z,B.STONE);
+        set(x,3,z, jr()<0.05 ? B.LEAF : B.WATER);          // 睡莲叶
+      }else if(e<=1.18 && grass(x,z) && jr()<0.55) set(x,3,z,B.STONE);   // 池边石
+    }
+    // 锦鲤（透过池水看见池底的红、金、白色鱼影）
+    const koi=[[2,2,B.RED],[-3,1,B.RED],[3,-3,B.YELLOW],[-2,-3,B.RED],[0,3,B.WHITE],[-4,3,B.YELLOW],[4,2,B.RED],[-1,-2,B.WHITE]];
+    for(const [dx,dz,c] of koi) if(get(px+dx,3,cz+dz)===B.WATER) set(px+dx,2,cz+dz,c);
+    // 拱桥：木桥面中段抬高一格（下方留空形成拱），两侧红色桥沿 + 间隔栏杆柱
+    for(let x=px-6;x<=px+6;x++){
+      const h = 4 + (Math.abs(x-px)<=2 ? 1 : 0);
+      for(let z=cz-1;z<=cz+1;z++) set(x,h,z,B.PLANK);
+      for(const rz of [cz-2,cz+2]){
+        set(x,h,rz,B.RED);
+        if(Math.abs(x-px)%2===0) set(x,h+1,rz,B.RED);
+      }
+    }
+    toro(cx+11,cz-4); toro(cx+11,cz+4);
+    placeTree(px+7,cz-6,jr,B.RED); placeTree(px+7,cz+6,jr,B.RED);   // 红枫
+  }
+
+  // ③ 西侧枯山水（白砂耙纹 + 置石，石周围是同心波纹）
+  {
+    const x0=cx-21, x1=cx-13, z0=cz-5, z1=cz+5;
+    for(let x=cx-12;x<=cx-11;x++) for(let z=cz-1;z<=cz+1;z++) if(grass(x,z)) set(x,3,z,B.PATH);
+    const rocks=[[x0+3,cz-2],[x1-2,cz+3],[x0+2,cz+3]];
+    for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++){
+      if(!grass(x,z)) continue;
+      if(x===x0||x===x1||z===z0||z===z1){ set(x,3,z,B.GRAY); continue; }
+      let d=99; for(const [rx,rz] of rocks) d=Math.min(d,Math.hypot(x-rx,z-rz));
+      const stripe = d<=2.6 ? Math.floor(d)%2 : z%2;
+      set(x,3,z, stripe ? B.WHITE : B.TILE);
+    }
+    set(x0+3,4,cz-2,B.STONE); set(x0+4,4,cz-2,B.STONE); set(x0+3,5,cz-2,B.STONE); set(x0+3,4,cz-1,B.GRAY);
+    set(x1-2,4,cz+3,B.STONE); set(x1-2,5,cz+3,B.GRAY);
+    set(x0+2,4,cz+3,B.GRAY);
+    toro(cx-12,cz-4); toro(cx-12,cz+4);
+  }
+
+  // ④ 南侧茶室（木平台 + 原木柱 + 深色瓦屋顶 + 后墙纸拉门）
+  {
+    const z0=cz+13, z1=cz+17, x0=cx-3, x1=cx+3;
+    for(let x=cx-1;x<=cx+1;x++) for(let z=cz+11;z<=z0-1;z++) if(grass(x,z)) set(x,3,z,B.PATH);
+    for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) set(x,4,z,B.PLANK);
+    for(const [px,pz] of [[x0,z0],[x1,z0],[x0,z1],[x1,z1]]) for(let y=5;y<=7;y++) set(px,y,pz,B.LOG);
+    for(let x=x0+1;x<=x1-1;x++) for(let y=5;y<=7;y++) set(x,y,z1, y===6 ? B.PLANK : B.WHITE);   // 障子
+    for(let x=x0-1;x<=x1+1;x++) for(let z=z0-1;z<=z1+1;z++) set(x,8,z,B.BLACK);
+    for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) set(x,9,z,B.GRAY);
+    for(let x=x0+1;x<=x1-1;x++) for(let z=z0+1;z<=z1-1;z++) set(x,10,z,B.GRAY);
+    for(let x=x0+1;x<=x1-1;x++) set(x,11,cz+15,B.BLACK);
+    set(cx,5,cz+15,B.PLANK);                                  // 矮茶桌
+    placeLamp(cx+0.5, 7.6, cz+15.5);
+    toro(x0-2,z0); toro(x1+2,z0);
+  }
+
+  // ⑥ 温泉（露天风吕）：茶室南侧，木栅栏围合，石块围边的热水池、更衣小屋、木凳与水桶，入口挂「♨」牌（蒸汽见 buildOnsenDecor）
+  {
+    const ox=ONSEN.x, oz=ONSEN.z, rx=6.5, rz=4.5;
+    const X0=ox-12, X1=ox+12, Z0=oz-9, Z1=oz+9;
+    for(let x=cx+6;x<=cx+7;x++) for(let z=cz+9;z<Z0;z++) if(grass(x,z)) set(x,3,z,B.PATH);     // 从樱花园步道接过来
+    for(let x=X0;x<=X1;x++) for(let z=Z0;z<=Z1;z++){
+      if(!grass(x,z)) continue;
+      const e=Math.hypot((x-ox)/rx,(z-oz)/rz);
+      if(e<=1){ set(x,2,z,B.STONE); set(x,3,z,B.ONSEN); }                       // 浅池：乳白温泉水，站在池里水没到腰
+      else if(e<=1.28){
+        const entry = z<oz && Math.abs(x-ox)<=1;                                  // 北面留一个入池口
+        const spout = Math.abs(x-ox)<=1 && z>oz;                                  // 竹筒出水口前不挡视线
+        const k=jr();
+        set(x,3,z, k<0.3 ? B.GRASS : B.STONE);                                    // 池边一圈石头夹杂青苔
+        if(!entry && !spout){
+          const m=jr();
+          if(m<0.18) set(x,4,z,B.STONE);                                          // 零星的低矮圆石
+          else if(m<0.32) set(x,4,z,B.LEAF);                                      // 池边小灌木
+        }
+      }else if(e<=1.6) set(x,3,z, jr()<0.35 ? B.GRASS : B.STONE);               // 外圈：苔藓过渡到石板
+      else set(x,3,z, jr()<0.5 ? B.STONE : B.GRAY);                             // 石板铺地
+    }
+    // 池后方的景石
+    for(const [dx,dz,h] of [[0,6,3],[1,6,2],[-1,6,2],[2,6,1],[-2,7,1],[0,7,2]]) for(let y=4;y<4+h;y++) set(ox+dx,y,oz+dz,B.STONE);
+    set(ox+1,6,oz+6,B.LEAF); set(ox-2,5,oz+7,B.LEAF);                           // 景石上的青苔
+    // 木栅栏（东、西、南三面，北面朝庭园开放）
+    for(let x=X0-1;x<=X1+1;x++) for(let z=Z0;z<=Z1+1;z++){
+      const side = x===X0-1 || x===X1+1 || z===Z1+1;
+      if(!side) continue;
+      const post = (x+z)%3===0;
+      for(let y=4;y<=(post?6:5);y++) set(x,y,z, post ? B.LOG : B.PLANK);
+    }
+    // 入口门框 + 门楣
+    const ex=cx+6;                                   // 入口正对接过来的步道（x=ex..ex+1）
+    for(const px of [ex-2,ex+3]) for(let y=4;y<=6;y++) set(px,y,Z0-1,B.LOG);
+    for(let x=ex-3;x<=ex+4;x++) set(x,7,Z0-1,B.BLACK);
+    // 更衣小屋（西南角，门朝东）
+    {
+      const hx0=X0+1, hx1=X0+5, hz0=Z1-5, hz1=Z1-1;
+      for(let x=hx0;x<=hx1;x++) for(let z=hz0;z<=hz1;z++){
+        set(x,3,z,B.PLANK);
+        const wall = x===hx0||x===hx1||z===hz0||z===hz1;
+        for(let y=4;y<=6;y++) set(x,y,z, wall ? (y===5 && !(x===hx0||x===hx1) ? B.WHITE : B.PLANK) : B.AIR);
+      }
+      for(let z=hz0+1;z<=hz0+2;z++) for(let y=4;y<=5;y++) set(hx1,y,z,B.AIR);   // 门
+      for(let x=hx0-1;x<=hx1+1;x++) for(let z=hz0-1;z<=hz1+1;z++) set(x,7,z,B.BLACK);
+      for(let x=hx0;x<=hx1;x++) for(let z=hz0;z<=hz1;z++) set(x,8,z,B.GRAY);
+      placeLamp(hx0+2.5, 6.6, hz0+2.5);
+    }
+    // 木凳与水桶（池东侧冲洗区）
+    for(const dz of [-3,0,3]){ set(X1-2,4,oz+dz,B.PLANK); set(X1-1,4,oz+dz,B.LOG); }
+    toro(X0+1,Z0+1); toro(X1-1,Z0+1); toro(X1-1,Z1-1);
+  }
+
+  // ⑤ 四角竹林
+  for(const [gx,gz] of [[cx-17,cz-11],[cx+17,cz-11],[cx-17,cz+14],[cx+18,cz+14]]){
+    for(let x=gx-2;x<=gx+2;x++) for(let z=gz-2;z<=gz+2;z++){
+      if(!grass(x,z) || jr()>0.45) continue;
+      const h=5+Math.floor(jr()*4);
+      for(let y=4;y<4+h;y++) set(x,y,z,B.LEAF);
+    }
+  }
+}
 function buildSakuraGarden(cx,cz,rand){
   const R=10;
   for(let x=cx-R-1;x<=cx+R+1;x++) for(let z=cz-R-1;z<=cz+R+1;z++){
@@ -1684,6 +1835,7 @@ function generate(){
     // 樱花花园（大楼南侧，隔一段草坪）+ 连接步道
     for(let x=175;x<=179;x++) for(let z=10;z<=15;z++) if(get(x,3,z)===B.GRASS) set(x,3,z,B.PATH);
     buildSakuraGarden(177,25,rand);
+    decorateJapaneseGarden(177,25);
   }
 
   /* ---- 6.76 参照规划鸟瞰图新增的四组建筑（东北侧）：圆环天井塔、三角天窗楼、C 形庭院楼、光伏板楼群 ---- */
@@ -1724,21 +1876,42 @@ function generate(){
     const doorway = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) for(let y=4;y<=6;y++) set(x,y,z,B.AIR); };
     const plaza = (x0,x1,z0,z1)=>{ for(let x=x0;x<=x1;x++) for(let z=z0;z<=z1;z++) set(x,3,z,B.TILE); };
 
-    // ① 圆环天井塔：4 层圆环体量，中心是通天的圆形天井，屋顶退台绿化 + 光伏环
+    // ① 圆形主楼（参照近景效果图）：首层通透玻璃 + 白色基座环，上部铜木色竖向百叶外立面，
+    //    屋顶绿篱女儿墙 + 白色步行环 + 平铺草坪环 + 中央圆形采光天窗，东侧玻璃雨棚接落客环岛
     {
-      const cx=100, cz=-50, RO=11, RI=5.5;
-      const inside=(x,z)=>{ const r=Math.hypot(x-cx,z-cz); return r<=RO && r>=RI; };
-      volume(cx-12,cx+12,cz-12,cz+12,inside,4,(x,z,yTop)=>{
+      const cx=100, cz=-50, RO=11, ST=4, yTop=3+ST*4;
+      const inside=(x,z)=>Math.hypot(x-cx,z-cz)<=RO+0.4;   // +0.4：避免四个正方向各凸出一个孤立方块
+      volume(cx-12,cx+12,cz-12,cz+12,inside,ST,()=>{},[107,108,-49,-44]);
+      for(let x=cx-12;x<=cx+12;x++) for(let z=cz-12;z<=cz+12;z++){
+        if(!inside(x,z)) continue;
         const r=Math.hypot(x-cx,z-cz);
-        if(r>=6.5&&r<8.5) set(x,yTop+1,z,B.GRASS);
-        else if(r>=8.5&&r<=10) set(x,yTop+1,z,B.SOLAR);
-      },[107,108,-49,-44]);
-      for(let x=cx-5;x<=cx+5;x++) for(let z=cz-5;z<=cz+5;z++) if(Math.hypot(x-cx,z-cz)<RI) set(x,3,z,B.GRASS);
-      doorway(cx-1,cx+1,cz+9,cz+11);      // 南面外墙入口
-      doorway(cx-1,cx+1,cz+4,cz+7);       // 通向天井的内墙门
+        const edge = !inside(x+1,z)||!inside(x-1,z)||!inside(x,z+1)||!inside(x,z-1);
+        if(edge){
+          const fin = Math.floor((Math.atan2(z-cz,x-cx)+Math.PI)*RO*0.9)%2===0;
+          for(let y=4;y<=7;y++) set(x,y,z, y===7 ? B.WHITE : ((x+z)%5===0 ? B.WHITE : B.GLASS));  // 首层：玻璃 + 稀疏白柱，顶部白色基座环
+          for(let y=8;y<yTop;y++) set(x,y,z, fin ? B.PLANK : B.GLASS);                          // 上部：连续竖向木色百叶
+          set(x,yTop,z,B.WHITE);
+          set(x,yTop+1,z,B.LEAF);                                                               // 屋顶边缘绿篱
+        }else if(r<=2.5) set(x,yTop,z,B.GLASS);                // 中央圆形采光天窗
+        else if(r>3.5 && r<=7.5) set(x,yTop,z,B.GRASS);        // 草坪环与屋面齐平（不露出泥土侧面）
+      }
+      doorway(cx-1,cx+1,cz+9,cz+11);      // 南面入口
       plaza(cx-3,cx+3,cz+12,cz+14);
-      stairsZ(107,108,-48,4);
-      placeTree(cx,cz,mr);
+      doorway(cx+9,cx+11,cz-1,cz+1);      // 东面主入口
+      // 玻璃雨棚（钢框 + 两根立柱）
+      for(let x=cx+12;x<=cx+16;x++) for(let z=cz-3;z<=cz+3;z++){
+        set(x,3,z,B.TILE);
+        set(x,7,z, (x===cx+16||z===cz-3||z===cz+3) ? B.STEEL : B.GLASS);
+      }
+      for(const pz of [cz-3,cz+3]) for(let y=4;y<=6;y++) set(cx+16,y,pz,B.STEEL);
+      // 落客环岛：沥青环道 + 中央草地种一棵树
+      const rx=cx+21;
+      for(let x=rx-5;x<=rx+5;x++) for(let z=cz-5;z<=cz+5;z++){
+        const rr=Math.hypot(x-rx,z-cz);
+        if(rr<=5) set(x,3,z, rr<2.2 ? B.GRASS : B.ASPHALT);
+      }
+      placeTree(rx,cz,mr);
+      stairsZ(107,108,-48,ST);
     }
     // ② 三角天窗楼：5 层三角形体量，屋顶中央是三角形玻璃采光天窗，四周屋顶绿化
     {
@@ -1822,7 +1995,7 @@ function generate(){
     if(x>-40&&x<-6&&z>-54&&z<-22) continue;     // 实验楼
     if(x>78&&z>22&&z<46) continue;              // Campus 3.0 绿篱区
     if(x>140&&z>-25&&z<15) continue;            // ViTrox Education 飘带大楼场地
-    if(x>163&&x<191&&z>13&&z<37) continue;      // 樱花花园
+    if(x>153&&x<202&&z>9&&z<64) continue;       // 樱花 / 日式庭园 / 温泉
     if(Math.abs(x)<7&&z>20) continue;           // 主入口步道
     if(get(x,3,z)!==B.GRASS) continue;
     placeTree(x,z,rand); planted++;
@@ -2273,7 +2446,7 @@ const clouds=[];
 {
   const rand = mulberry32(777);
   const cmat = new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.85 });
-  for(let i=0;i<14;i++){
+  for(let i=0;i<28;i++){
     const w=10+rand()*16, d=8+rand()*12;
     const m = new THREE.Mesh(new THREE.BoxGeometry(w,2,d), cmat);
     m.position.set((rand()*2-1)*155, 46+rand()*14, (rand()*2-1)*130);
@@ -2481,6 +2654,68 @@ function refreshCMTerminalTags(){
     st._tag.material.map = nameTagTexture((i+1) + '. ' + CM_CHAPTERS[st.chapterIdx].tag[lang]);
     st._tag.material.needsUpdate = true;
   });
+}
+/* ---- 温泉蒸汽（缓慢上升、逐渐变大变淡的半透明白雾）+ 入口「♨」牌 ---- */
+const onsenSteam=[];
+let onsenStream=null;
+function buildOnsenDecor(){
+  const c=document.createElement('canvas'); c.width=c.height=64;
+  const g=c.getContext('2d');
+  const grd=g.createRadialGradient(32,32,2,32,32,30);
+  grd.addColorStop(0,'rgba(255,255,255,0.9)'); grd.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=grd; g.fillRect(0,0,64,64);
+  const tex=new THREE.CanvasTexture(c);
+  const rnd=mulberry32(1357);
+  for(let i=0;i<14;i++){
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({ map:tex, transparent:true, depthWrite:false, opacity:0 }));
+    s.userData={ x:ONSEN.x+0.5+(rnd()*2-1)*5, z:ONSEN.z+0.5+(rnd()*2-1)*3.2, t:rnd()*4 };
+    scene.add(s); onsenSteam.push(s);
+  }
+  // 竹筒出水口（从景石顶部伸向池面）+ 下落水流 + 落水处的水花
+  {
+    const a=new THREE.Vector3(ONSEN.x+0.5, 7.15, ONSEN.z+6.3), b=new THREE.Vector3(ONSEN.x+0.5, 6.75, ONSEN.z+4.2);
+    const len=a.distanceTo(b);
+    const bam=new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.13,len,10), new THREE.MeshBasicMaterial({color:0x7fa83a}));
+    bam.position.copy(a).add(b).multiplyScalar(0.5);
+    bam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), b.clone().sub(a).normalize());
+    scene.add(bam);
+    for(const t of [0.3,0.65]){                                  // 竹节
+      const ring=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.15,0.06,10), new THREE.MeshBasicMaterial({color:0x5c7d26}));
+      ring.position.copy(a).lerp(b,t); ring.quaternion.copy(bam.quaternion); scene.add(ring);
+    }
+    const post=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,2.8,8), new THREE.MeshBasicMaterial({color:0x6b8f2e}));
+    post.position.set(ONSEN.x+0.5, 5.4, ONSEN.z+4.9); scene.add(post);   // 支撑竹竿
+    onsenStream=new THREE.Mesh(new THREE.BoxGeometry(0.1,2.75,0.1), new THREE.MeshBasicMaterial({color:0xe6fbff, transparent:true, opacity:0.7}));
+    onsenStream.position.set(b.x, b.y-1.4, b.z-0.08); scene.add(onsenStream);
+    onsenStream.userData.splash=[];
+    for(let i=0;i<5;i++){
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({ map:tex, transparent:true, depthWrite:false, opacity:0 }));
+      sp.userData.t=i*0.24; scene.add(sp); onsenStream.userData.splash.push(sp);
+    }
+  }
+  const sign=new THREE.Sprite(new THREE.SpriteMaterial({ map:galleryLabel('♨ Onsen 温泉') }));
+  sign.scale.set(3.2,0.8,1);
+  sign.position.set(ONSEN.x+7, 8.4, ONSEN.z-9.5);   // 挂在入口门楣上方
+  scene.add(sign);
+}
+function animateOnsenSteam(dt){
+  for(const s of onsenSteam){
+    const u=s.userData; u.t=(u.t+dt*0.5)%4;
+    const k=u.t/4;                                  // 0→1：升起、变大、淡出
+    s.position.set(u.x+Math.sin(u.t*1.3)*0.3, 3.7+k*3.2, u.z);
+    s.scale.setScalar(1.6+k*2.8);
+    s.material.opacity = 0.62*Math.sin(Math.PI*k);
+  }
+  if(onsenStream){
+    onsenStream.material.opacity = 0.6 + 0.15*Math.sin(performance.now()*0.02);
+    for(const sp of onsenStream.userData.splash){               // 落水点向外溅开的小水花
+      sp.userData.t=(sp.userData.t+dt)%1.2;
+      const k=sp.userData.t/1.2, ang=sp.userData.t*9;
+      sp.position.set(onsenStream.position.x+Math.cos(ang)*0.5*k, 4.05+0.35*Math.sin(Math.PI*k), onsenStream.position.z+Math.sin(ang)*0.5*k);
+      sp.scale.setScalar(0.35+0.5*k);
+      sp.material.opacity = 0.7*(1-k);
+    }
+  }
 }
 function buildIactgLabels(){                          // I.A.C.T.G. 柱列的浮空文字牌
   const grp = new THREE.Group(); scene.add(grp);
@@ -2779,7 +3014,7 @@ function raycast(maxDist){
   let face=[0,0,0], t=0;
   while(t<=maxDist){
     const b=get(x,y,z);
-    if(b!==B.AIR && b!==B.WATER) return {x,y,z,block:b,face};
+    if(b!==B.AIR && b!==B.WATER && b!==B.ONSEN) return {x,y,z,block:b,face};
     if(tMX<tMY && tMX<tMZ){ x+=stepX; t=tMX; tMX+=tDX; face=[-stepX,0,0]; }
     else if(tMY<tMZ){ y+=stepY; t=tMY; tMY+=tDY; face=[0,-stepY,0]; }
     else { z+=stepZ; t=tMZ; tMZ+=tDZ; face=[0,0,-stepZ]; }
@@ -2996,6 +3231,42 @@ const DIPLOMA_KIOSKS = [
       zh:'🆕 即将来临：Bachelor of Computer Science (Intelligent Computing)（荣誉学位），与马来西亚理科大学（USM）合作开办：这是 USM 与 ViTrox 培养大马高科技人才策略合作的一部分，专注人工智能、机器学习与智能系统，并直接接触 ViTrox 智慧制造环境里的真实应用。',
       en:"🆕 Coming soon: Bachelor of Computer Science (Intelligent Computing) with Honours, offered in collaboration with Universiti Sains Malaysia (USM) — part of a strategic USM-ViTrox partnership to develop Malaysia's high-tech talent, focusing on AI, machine learning and intelligent systems, with direct exposure to real-world applications inside ViTrox's smart manufacturing environment.",
       ms:'🆕 Akan datang: Bachelor of Computer Science (Intelligent Computing) (Kepujian), ditawarkan bekerjasama dengan Universiti Sains Malaysia (USM) — sebahagian daripada kerjasama strategik USM-ViTrox untuk membangunkan bakat berteknologi tinggi Malaysia, memberi tumpuan kepada AI, pembelajaran mesin dan sistem pintar, dengan pendedahan langsung kepada aplikasi sebenar dalam persekitaran pembuatan pintar ViTrox.' } },
+  // —— ViTrox College 故事步道：从 Campus 3.0 通往 ViTrox Education 大楼的步道北侧，5 块按时间顺序排列的故事牌 ——
+  { id:'cs1', x:135, z:-4, floorY:4, icon:'🌱', iconBg:'#b5651d',
+    tag:{ zh:'故事 1 · 2020 起步', en:'Story 1 · 2020 Beginnings', ms:'Kisah 1 · Permulaan 2020' },
+    title:{ zh:'🌱 学院故事 1/5 · 起步（2020）', en:'🌱 College Story 1/5 · Beginnings (2020)', ms:'🌱 Kisah Kolej 1/5 · Permulaan (2020)' },
+    text:{
+      zh:'2020 年，ViTrox 成立了自己的教育部门 ViTrox Academy。初衷很简单：马来西亚的高科技产业缺工程人才，而课本理论和工厂现场之间总隔着一道鸿沟。与其只是招聘，不如亲手培养——把教室搬进真正的科技公司里。',
+      en:"In 2020, ViTrox launched its own education division, ViTrox Academy. The reason was simple: Malaysia's high-tech industry was short of engineers, and there was always a gap between textbook theory and the real factory floor. Instead of only hiring talent, ViTrox decided to grow it — by putting the classroom inside a real tech company.",
+      ms:'Pada tahun 2020, ViTrox melancarkan bahagian pendidikannya sendiri, ViTrox Academy. Sebabnya mudah: industri teknologi tinggi Malaysia kekurangan jurutera, dan sentiasa ada jurang antara teori buku teks dengan lantai kilang sebenar. Daripada hanya mengambil pekerja, ViTrox memilih untuk melahirkan bakat sendiri — dengan meletakkan bilik darjah di dalam syarikat teknologi sebenar.' } },
+  { id:'cs2', x:137, z:-4, floorY:4, icon:'🛠️', iconBg:'#c0392b',
+    tag:{ zh:'故事 2 · 2023 第一批学生', en:'Story 2 · 2023 First Students', ms:'Kisah 2 · 2023 Pelajar Pertama' },
+    title:{ zh:'🛠️ 学院故事 2/5 · 第一批学生（2023）', en:'🛠️ College Story 2/5 · The First Students (2023)', ms:'🛠️ Kisah Kolej 2/5 · Pelajar Pertama (2023)' },
+    text:{
+      zh:'2023 年 1 月 9 日，ViTrox College 第一届文凭课程开课，第一班只有 10 名学生。同一年，技能证书（SKM）课程也迎来了 13 位「先锋学员」——这个课程有 80% 是实践训练，姐妹公司 ViTrox Technologies 成为第一个让学员上手实习的合作伙伴。开头并不容易，但每一步都是这样一边做、一边学出来的。',
+      en:'On 9 January 2023, the first diploma class at ViTrox College began — just 10 students. That same year the skills-certificate (SKM) programme welcomed its "13 Pioneers". With 80% of that programme being hands-on training, sister company ViTrox Technologies stepped up as the very first partner to train them on the job. The start was not easy, but every step was learned the same way the students learn: by doing.',
+      ms:'Pada 9 Januari 2023, kelas diploma pertama di ViTrox College bermula — hanya 10 orang pelajar. Pada tahun yang sama, program sijil kemahiran (SKM) menyambut "13 Perintis" yang pertama. Oleh kerana 80% program itu ialah latihan amali, syarikat bersekutu ViTrox Technologies tampil sebagai rakan pertama yang melatih mereka di tempat kerja. Permulaannya tidak mudah, tetapi setiap langkah dipelajari dengan cara yang sama seperti pelajar belajar: dengan melakukannya.' } },
+  { id:'cs3', x:139, z:-4, floorY:4, icon:'🏭', iconBg:'#2f6fe0',
+    tag:{ zh:'故事 3 · 做中学', en:'Story 3 · Learning by Doing', ms:'Kisah 3 · Belajar Sambil Buat' },
+    title:{ zh:'🏭 学院故事 3/5 · 在工厂里上课', en:'🏭 College Story 3/5 · A Classroom Inside a Factory', ms:'🏭 Kisah Kolej 3/5 · Bilik Darjah di Dalam Kilang' },
+    text:{
+      zh:'ViTrox College 采用「工作本位学习」：学生每周有几天上课，其余时间和真正的工程师、科学家一起解决真实的工程问题。随着更多企业加入，合作伙伴从一家增加到二十多家，学员人数也超过一百人；许多毕业生在受训的公司直接成为正式员工。',
+      en:'ViTrox College uses work-based learning: students attend lectures a few days a week and spend the rest of their time solving real engineering problems alongside engineers and scientists. As more companies joined in, industry partners grew from one to more than twenty and enrolment passed a hundred students — and many graduates went straight into permanent jobs at the companies that trained them.',
+      ms:'ViTrox College menggunakan pembelajaran berasaskan kerja: pelajar menghadiri kuliah beberapa hari seminggu dan menghabiskan masa selebihnya menyelesaikan masalah kejuruteraan sebenar bersama jurutera dan saintis. Apabila lebih banyak syarikat menyertai, rakan industri bertambah daripada satu kepada lebih dua puluh dan bilangan pelajar melebihi seratus orang — dan ramai graduan terus menjadi pekerja tetap di syarikat yang melatih mereka.' } },
+  { id:'cs4', x:141, z:-4, floorY:4, icon:'🤝', iconBg:'#16a085',
+    tag:{ zh:'故事 4 · 2026 学士学位', en:'Story 4 · 2026 Degrees', ms:'Kisah 4 · 2026 Ijazah' },
+    title:{ zh:'🤝 学院故事 4/5 · 迈向学士学位（2026）', en:'🤝 College Story 4/5 · Growing into Degrees (2026)', ms:'🤝 Kisah Kolej 4/5 · Melangkah ke Ijazah (2026)' },
+    text:{
+      zh:'2026 年 1 月，马来西亚理科大学（USM）与 ViTrox College 签署合作，在 ViTrox 的产业环境里开办两个由 USM 认证并颁发学位的学士课程：电子工程（荣誉）与计算机科学（智能计算）（荣誉）。同年 4 月，学院再与 UCSI University 签约，在峇都加湾园区内全程开办机电工程（荣誉）学士课程，计划于 2026 年 9 月迎来第一批学生。',
+      en:'In January 2026, Universiti Sains Malaysia (USM) and ViTrox College agreed to deliver two USM-accredited degrees inside ViTrox\'s industrial environment: Electronic Engineering (Hons) and Computer Science (Intelligent Computing) (Hons), with USM awarding the degrees. In April 2026 the college also signed with UCSI University for a Bachelor of Mechatronics Engineering (Hons), taught entirely on the Batu Kawan campus, with a first intake planned for September 2026.',
+      ms:'Pada Januari 2026, Universiti Sains Malaysia (USM) dan ViTrox College bersetuju menawarkan dua ijazah yang diiktiraf USM di dalam persekitaran industri ViTrox: Kejuruteraan Elektronik (Kepujian) dan Sains Komputer (Pengkomputeran Pintar) (Kepujian), dengan ijazah dianugerahkan oleh USM. Pada April 2026, kolej turut menandatangani perjanjian dengan UCSI University untuk Ijazah Sarjana Muda Kejuruteraan Mekatronik (Kepujian), diajar sepenuhnya di kampus Batu Kawan, dengan pengambilan pertama dirancang pada September 2026.' } },
+  { id:'cs5', x:143, z:-4, floorY:4, icon:'🚀', iconBg:'#8e44ad',
+    tag:{ zh:'故事 5 · 未来', en:'Story 5 · The Future', ms:'Kisah 5 · Masa Depan' },
+    title:{ zh:'🚀 学院故事 5/5 · 下一章', en:'🚀 College Story 5/5 · The Next Chapter', ms:'🚀 Kisah Kolej 5/5 · Bab Seterusnya' },
+    text:{
+      zh:'故事还在继续。ViTrox 正在 Campus 3.0 旁边筹建 ViTrox Institute of Technology（VIT），规划共五座大楼。长远目标是：同时容纳 5,000 名学生，每年培养 2,000 名工程师。往北走，看看园区正在长出来的新大楼吧——也许有一天，你也会在那里上课！',
+      en:'The story is still being written. ViTrox is building the ViTrox Institute of Technology (VIT) beside Campus 3.0 — five blocks are planned. The long-term goal: 5,000 students at a time, and 2,000 new engineers every year. Head north to see the new buildings rising on campus — maybe one day you will study there too!',
+      ms:'Kisah ini masih ditulis. ViTrox sedang membina ViTrox Institute of Technology (VIT) di sebelah Campus 3.0 — lima blok dirancang. Matlamat jangka panjang: 5,000 pelajar pada satu masa, dan 2,000 jurutera baharu setiap tahun. Pergilah ke utara untuk melihat bangunan baharu yang sedang dibina di kampus — mungkin suatu hari nanti anda juga akan belajar di sana!' } },
 ];
 const CM_TERMINALS = [                       // 全部 10 台电脑都集中在电脑室 1（Ts Dr Lim SC 所在这一区），每台颜色不同、对应一个 IT 主题
   { id:'t1',  x:41, z:-13, floorY:16, chapterIdx:0, color:0x3d8bff, facing:1 },
@@ -5023,7 +5294,7 @@ function doPlace(){
   const tx=hit.x+hit.face[0], ty=hit.y+hit.face[1], tz=hit.z+hit.face[2];
   if(!inBounds(tx,ty,tz)) return;
   const cur=get(tx,ty,tz);
-  if(cur!==B.AIR && cur!==B.WATER) return;
+  if(cur!==B.AIR && cur!==B.WATER && cur!==B.ONSEN) return;
   // 不允许把方块放进自己身体里
   const p=player.pos;
   const overlap = tx+1>p.x-player.W && tx<p.x+player.W &&
@@ -5107,6 +5378,7 @@ buildCarMeshes();
 buildCMBoard();
 buildDiplomaKiosks();
 buildIactgLabels();
+buildOnsenDecor();
 respawn();
 
 const posEl=document.getElementById('pos');
@@ -5278,6 +5550,7 @@ function animate(){
   animateRemotes(dt);
   animateNpcs(dt);
   updateDayNight(elapsed); skyDome.position.copy(camera.position);
+  animateOnsenSteam(dt);
   for(const c of clouds){
     c.position.x += dt*1.4;
     if(c.position.x>165) c.position.x=-165;

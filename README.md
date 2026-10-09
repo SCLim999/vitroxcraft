@@ -76,7 +76,7 @@ press `E` near anything interactive.
   lessons on the campus's design concepts (radial layout, solid vs. void, green
   roof, geometric juxtaposition, industry × campus culture, and the computer
   lab, and more).
-- **Campus masterplan additions (north-east)** — four more enterable building groups modelled on the masterplan aerial render: a round oculus tower with an open grass atrium and stepped green roof, a triangular building with a glass skylight, a C-shaped block wrapping a lawn courtyard (open to the east), and a cluster of three solar-roof slabs. Each has doors and a switchback stair all the way up to a walkable roof, and indoor lamps that light at night. They have no quests or dialogue yet.
+- **Campus masterplan additions (north-east)** — four more enterable building groups modelled on the masterplan aerial render: a round drum building with a timber-louvre façade, a glass ground floor, a green roof ring around a central round skylight, and a glass canopy facing a small drop-off roundabout, a triangular building with a glass skylight, a C-shaped block wrapping a lawn courtyard (open to the east), and a cluster of three solar-roof slabs. Each has doors and a switchback stair all the way up to a walkable roof, and indoor lamps that light at night. They have no quests or dialogue yet.
 - **21 NPCs** — a tutorial Game Master, guards, receptionists, engineers,
   gardeners, chefs, students, the three real ViTrox co-founders, an architect,
   lecturers, and a marketing officer — walk up and press `E` to talk. Dialogue
@@ -130,12 +130,21 @@ press `E` near anything interactive.
   Engineering), then 3 bachelor's degrees (🎓 Mechatronics Engineering Hons
   with UCSI University, 🔌 Electronic Engineering Hons and 🤖 Computer Science
   (Intelligent Computing) Hons — both marked *Coming Soon* — with Universiti
-  Sains Malaysia). Marketing officer Cindy wanders that floor to point
+  Sains Malaysia). On the walkway leading in from Campus 3.0, a **College Story trail** of 5 more kiosks tells ViTrox College's story in order — ViTrox Academy's start in 2020, the first diploma class and the "13 Pioneers" in 2023, learning by doing alongside real engineers, the USM and UCSI degree partnerships in 2026, and the planned ViTrox Institute of Technology. Marketing officer Cindy wanders that floor to point
   visitors to them. Just south of the building, across a stretch of lawn, is
   a small **sakura garden**: a cross-shaped stone path around a central
   lantern, four benches, and a ring of 8 pink cherry-blossom trees with
-  fallen-petal tiles scattered underneath — pure scenery, free to wander
-  through. On the left side of the main entrance roundabout stand 5 stone
+  fallen-petal tiles scattered underneath — now dressed up as a full
+  **Japanese garden**: a red torii gate at the north entrance, stone lanterns that
+  glow at night, an oval koi pond (red, gold and white koi under the water) crossed
+  by a red arched bridge, a raked-gravel zen rock garden, a dark-roofed tea house
+  with shoji screens, bamboo groves at the corners and red maples. Just south of the tea house, a
+  path leads through a "♨ Onsen 温泉" gate into an open-air **onsen**: a fenced,
+  stone-paved yard with a waist-deep hot spring pool of milky turquoise water (you
+  can step in), ringed by mossy stones and small shrubs, with thick steam drifting
+  up and a bamboo spout pouring into it from a mossy feature rock, a changing hut, and a row of wooden stools
+  and buckets. Pure scenery,
+  free to wander through. On the left side of the main entrance roundabout stand 5 stone
   pillars capped in ViTrox blue, each labelled with one of the company's
   I.A.C.T.G. core values — Integrity, Accountability, Courage, Trust &
   Respect, and Gratitude & Care — per the official core-values page. Walk
