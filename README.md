@@ -134,8 +134,12 @@ press `E` near anything interactive.
   visitors to them. Just south of the building, across a stretch of lawn, is
   a small **sakura garden**: a cross-shaped stone path around a central
   lantern, four benches, and a ring of 8 pink cherry-blossom trees with
-  fallen-petal tiles scattered underneath — pure scenery, free to wander
-  through. On the left side of the main entrance roundabout stand 5 stone
+  fallen-petal tiles scattered underneath — now dressed up as a full
+  **Japanese garden**: a red torii gate at the north entrance, stone lanterns that
+  glow at night, an oval koi pond (red, gold and white koi under the water) crossed
+  by a red arched bridge, a raked-gravel zen rock garden, a dark-roofed tea house
+  with shoji screens, bamboo groves at the corners and red maples. Pure scenery,
+  free to wander through. On the left side of the main entrance roundabout stand 5 stone
   pillars capped in ViTrox blue, each labelled with one of the company's
   I.A.C.T.G. core values — Integrity, Accountability, Courage, Trust &
   Respect, and Gratitude & Care — per the official core-values page. Walk
