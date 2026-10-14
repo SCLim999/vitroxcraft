@@ -333,6 +333,64 @@
   #prompt kbd { background:#3d3a34; color:#fff; border-radius:0; }
   #toast { background:#f2eadb; color:#2b2b2b; border:3px solid #cfc6b4; border-radius:2px;
     box-shadow:0 0 0 2px #3d3a34; font-weight:600; }
+
+  /* ---------- 开始菜单 / 密码锁屏：与游戏内面板同一套奶油色风格 ---------- */
+  #overlay, #lockscreen { background:rgba(12,22,40,.72); backdrop-filter:blur(3px); }
+  #menu-panel, #lock-panel {
+    background:#f2eadb; color:#2b2b2b; border:4px solid #cfc6b4; border-radius:2px;
+    outline:3px solid #fff; outline-offset:-10px;
+    box-shadow:0 0 0 3px #3d3a34, 0 12px 40px rgba(0,0,0,.5);
+  }
+  #menu-panel { max-width:600px; padding:26px 30px; }
+  #menu-panel h1, #lock-panel h1 { color:#1f1f1f; font-weight:900; }
+  #menu-panel h2 { color:#6b6657; margin-bottom:6px; }
+  #menu-panel p, #lock-panel p { color:#2b2b2b; }
+  .menu-tagline { font-size:15px; line-height:1.55; margin:4px 0 12px; }
+  .menu-start { background:#e7dcc6; border:2px solid #cfc6b4; padding:12px 14px; margin-bottom:14px; }
+  .menu-start .mp-line { margin:0 0 10px; color:#2b2b2b; font-weight:600; }
+  #menu-panel input:not([type=checkbox]), #lock-panel #lock-input {
+    padding:8px 10px; font-size:15px; border-radius:0; border:2px solid #8b8273;
+    background:#fffdf7; color:#2b2b2b; width:150px;
+  }
+  #menu-panel .mp-box input#room-code { text-transform:uppercase; width:140px; letter-spacing:2px; }
+  #lock-panel #lock-input { width:170px; letter-spacing:2px; }
+  .btn.big { display:block; width:100%; margin-top:0; font-size:20px; padding:14px 20px; }
+  .menu-secondary { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px; }
+  .menu-secondary .btn { margin-top:0; font-size:14px; padding:8px 16px; }
+  .menu-secondary .tts-toggle { margin-top:0; }
+  .menu-h3 { font-size:16px; color:#1f1f1f; margin:4px 0 6px; }
+  .menu-features { list-style:none; margin:0 0 10px; padding:0; font-size:14px; line-height:1.5; }
+  .menu-features li { padding:4px 0; border-bottom:1px dashed rgba(0,0,0,.12); }
+  .menu-more { margin:8px 0; border:2px solid #cfc6b4; background:#ece2cf; }
+  .menu-more summary { cursor:pointer; padding:8px 12px; font-weight:700; color:#2b2b2b; user-select:none; }
+  .menu-more[open] summary { border-bottom:2px solid #cfc6b4; }
+  .menu-more > :not(summary) { margin-left:12px; margin-right:12px; }
+  .menu-more p { font-size:14px; }
+  #menu-panel kbd, #lock-panel kbd { background:#3d3a34; color:#fff; border-radius:0; }
+  #menu-panel td { border-bottom-color:rgba(0,0,0,.12); color:#2b2b2b; }
+  #menu-panel td:first-child { color:#6b4a12; font-weight:600; }
+  #menu-panel .mp-box { border:2px solid #cfc6b4; border-radius:0; background:#ece2cf; }
+  #menu-panel .mp-box h3 { color:#1f1f1f; }
+  .mp-or { color:#6b6657; }
+  #menu-panel #mp-status { color:#3d5a80; }
+  #menu-panel #mp-status.err { color:#b3261e; }
+  #menu-panel #mp-status b { color:#a8620a; }
+  #menu-panel .credit, #menu-panel .credit a { color:#6b6657; }
+  #menu-panel .tts-toggle, #menu-panel .voice-row { color:#2b2b2b; }
+  #menu-panel .lang-btn, #menu-panel .voice-btn { border:2px solid #8b8273; border-radius:0; color:#2b2b2b; background:#fffdf7; }
+  #menu-panel .lang-btn.active, #menu-panel .voice-btn.active { background:#3d3a34; color:#fff; border-color:#3d3a34; }
+  #menu-settings .btn.danger { margin:12px 12px 12px; font-size:13px; padding:8px 14px; background:#8a3b32; border-color:#4d1f1a; }
+  #menu-settings .btn.danger:hover { background:#a3463b; }
+  #lock-panel { border-color:#cfc6b4; }
+  #lock-error { color:#b3261e; }
+  /* 菜单或锁屏打开时把游戏内 HUD 藏起来，背景只剩园区画面 */
+  body:has(#overlay:not(.hidden)) :is(#chip,#compass,#minimap,#pos,#hotbar,#crosshair,#quests,#prompt,#touch-ui),
+  body:has(#lockscreen:not(.hidden)) :is(#chip,#compass,#minimap,#pos,#hotbar,#crosshair,#quests,#prompt,#touch-ui) { display:none !important; }
+  @media (max-width:520px){
+    #menu-panel { padding:18px 16px; }
+    #menu-panel h1 { font-size:20px; }
+    .menu-tagline { font-size:14px; }
+  }
 </style>
 </head>
 <body>
@@ -388,48 +446,71 @@
 
 <!-- 开始 / 暂停 界面 -->
 <div class="overlay" id="overlay">
-  <div class="panel">
+  <div class="panel" id="menu-panel">
     <div class="lang-row">
       <button class="lang-btn" data-lang="zh">中文</button>
       <button class="lang-btn" data-lang="en">English</button>
       <button class="lang-btn" data-lang="ms">B. Melayu</button>
     </div>
-    <h1>🟩 ViTrox Campus 2.0 · <span id="ov-h1"></span></h1>
+    <h1>🟩 ViTrox Campus · <span id="ov-h1"></span></h1>
     <h2 id="ov-sub"></h2>
-    <p id="ov-desc">Loading… （需要联网加载 Three.js / requires internet）</p>
-    <table id="ov-keys"></table>
-    <div class="mp-line"><span id="lbl-name"></span><input id="player-name" maxlength="12" placeholder="Steve"></div>
-    <button class="btn" id="btn-start"></button>
-    <button class="btn gray" id="btn-ad"></button>
-    <label class="tts-toggle" id="ad-loop-row">
-      <input type="checkbox" id="ad-loop-cb"><span id="ad-loop-lbl"></span>
-    </label>
-    <button class="btn gray" id="btn-reset"></button>
-    <label class="tts-toggle" id="music-toggle-row">
-      <input type="checkbox" id="music-cb"><span id="music-toggle-lbl"></span>
-    </label>
-    <audio id="bgm" src="pixelrush.mp3" loop preload="auto"></audio>
-    <audio id="endgame-bgm" src="starlightstrut.mp3" loop preload="auto"></audio>
-    <label class="tts-toggle hidden" id="tts-toggle-row">
-      <input type="checkbox" id="tts-auto-cb"><span id="tts-toggle-lbl"></span>
-    </label>
-    <div class="voice-row hidden" id="voice-gender-row">
-      <span id="voice-gender-lbl"></span>
-      <button class="voice-btn" data-gender="m" id="voice-btn-m">👨</button>
-      <button class="voice-btn" data-gender="f" id="voice-btn-f">👩</button>
+    <p class="menu-tagline" id="ov-tagline">Loading… （需要联网加载 Three.js / requires internet）</p>
+
+    <!-- 主要操作放在最上面：名字 + 进入园区 -->
+    <div class="menu-start">
+      <div class="mp-line"><span id="lbl-name"></span><input id="player-name" maxlength="12" placeholder="Steve"></div>
+      <button class="btn big" id="btn-start"></button>
+      <div class="menu-secondary">
+        <button class="btn gray" id="btn-ad"></button>
+        <label class="tts-toggle" id="ad-loop-row">
+          <input type="checkbox" id="ad-loop-cb"><span id="ad-loop-lbl"></span>
+        </label>
+      </div>
     </div>
+
+    <h3 class="menu-h3" id="ov-feat-title"></h3>
+    <ul class="menu-features" id="ov-features"></ul>
+
+    <details class="menu-more">
+      <summary id="ov-howto"></summary>
+      <table id="ov-keys"></table>
+    </details>
 
     <div class="mp-box">
       <h3 id="mp-title"></h3>
       <div class="mp-line">
         <button class="btn blue" id="btn-host"></button>
-        <span style="color:#8aa" id="mp-or"></span>
+        <span class="mp-or" id="mp-or"></span>
         <input id="room-code" maxlength="5">
         <button class="btn blue" id="btn-join"></button>
       </div>
       <div id="mp-status"></div>
     </div>
-    <p class="credit" id="ov-credit"></p>
+
+    <details class="menu-more">
+      <summary id="ov-about-t"></summary>
+      <p id="ov-desc"></p>
+      <p class="credit" id="ov-credit"></p>
+    </details>
+
+    <!-- 设置：音乐 / 朗读 / 重置世界（重置放在最底部，避免误点） -->
+    <details class="menu-more" id="menu-settings">
+      <summary id="ov-settings"></summary>
+      <label class="tts-toggle" id="music-toggle-row">
+        <input type="checkbox" id="music-cb"><span id="music-toggle-lbl"></span>
+      </label>
+      <label class="tts-toggle hidden" id="tts-toggle-row">
+        <input type="checkbox" id="tts-auto-cb"><span id="tts-toggle-lbl"></span>
+      </label>
+      <div class="voice-row hidden" id="voice-gender-row">
+        <span id="voice-gender-lbl"></span>
+        <button class="voice-btn" data-gender="m" id="voice-btn-m">👨</button>
+        <button class="voice-btn" data-gender="f" id="voice-btn-f">👩</button>
+      </div>
+      <button class="btn gray danger" id="btn-reset"></button>
+    </details>
+    <audio id="bgm" src="pixelrush.mp3" loop preload="auto"></audio>
+    <audio id="endgame-bgm" src="starlightstrut.mp3" loop preload="auto"></audio>
   </div>
 </div>
 
@@ -544,6 +625,12 @@ const sind = d=>Math.sin(d*Math.PI/180);
 const STR = {
 zh: {
   docTitle:'ViTrox Campus 2.0 — 方块教育世界 (VitroxCraft)',
+  tagline:'用方块探索 ViTrox 园区——学建筑、学编程、认识 ViTrox 的故事，一个人玩或和同学一起玩都可以。',
+  featTitle:'园区里有什么',
+  features:['🟨 10 个金色信息方块：园区建筑设计小课堂','💬 20 多位角色：创办人、讲师、工程师……走过去按 <kbd>E</kbd>（或 💬）聊天','💻 DataMine IT 问答：四楼电脑室的 10 道题','🎓 ViTrox Education：课程介绍亭 + 学院故事步道','🌸 日式庭园与 ♨ 露天温泉','🏗️ 东北角按规划图新建的大楼，可以一路走上屋顶','⏱️ 20 分钟挑战：完成任务赢得称号'],
+  howTo:'🎮 操作说明', aboutT:'ℹ️ 关于这个世界', settingsT:'⚙️ 设置',
+  tk1:'移动', tv1:'左下角摇杆', tk2:'转视角', tv2:'在屏幕右侧拖动', tk3:'跳跃 / 飞行', tv3:'⬆ 跳跃 · ✈ 飞行（⬇ 下降）',
+  tk4:'挖 / 放方块', tv4:'⛏ 挖掉方块 · 🧱 放置方块', tk5:'互动 / 菜单', tv5:'💬 对话、阅读 · 📷 拍照 · ☰ 菜单',
   h1:'方块教育世界',
   sub:'VitroxCraft — 网页版 Minecraft 教育体验 · 槟城峇都交湾 (Batu Kawan, Penang)',
   desc:'本世界以 <b>CYC Architect 设计的 ViTrox Campus 2.0</b> 为蓝本：中央圆形露天庭院、放射状布局、环形景观坡道、与圆形体量相交的矩形生产办公楼，以及无门的开放式入口，东侧还有扩建的 Campus 3.0 与鱼池庭院。走进园区，找到 <b>10 个金色信息方块</b>，按 <kbd>E</kbd> 学习每一处的建筑设计理念！园区会随时间在白天与夜晚之间切换，室内的吸顶灯会在夜晚自动点亮，还有轻柔的环境音效相伴。',
@@ -642,6 +729,12 @@ zh: {
 },
 en: {
   docTitle:'ViTrox Campus 2.0 — Block Education World (VitroxCraft)',
+  tagline:'Explore ViTrox Campus in blocks — learn architecture, coding and the ViTrox story, on your own or with classmates.',
+  featTitle:"What's on campus",
+  features:['🟨 10 golden info blocks — bite-size architecture lessons','💬 20+ characters — founders, lecturers, engineers… walk up and press <kbd>E</kbd> (or tap 💬)','💻 DataMine IT quiz — 10 questions in the 4th-floor computer rooms','🎓 ViTrox Education — programme kiosks and the College Story trail','🌸 A Japanese garden and a ♨ open-air onsen','🏗️ New masterplan buildings in the north-east — climb all the way to the roof','⏱️ 20-minute challenge — finish the quests to earn a title'],
+  howTo:'🎮 How to play', aboutT:'ℹ️ About this world', settingsT:'⚙️ Settings',
+  tk1:'Move', tv1:'Joystick, bottom-left', tk2:'Look around', tv2:'Drag on the right side of the screen', tk3:'Jump / Fly', tv3:'⬆ jump · ✈ fly (⬇ to go down)',
+  tk4:'Break / Place', tv4:'⛏ break a block · 🧱 place a block', tk5:'Interact / Menu', tv5:'💬 talk & read · 📷 photo · ☰ menu',
   h1:'Block Education World',
   sub:'VitroxCraft — a web Minecraft education experience · Batu Kawan, Penang',
   desc:'This world is modelled on <b>ViTrox Campus 2.0 by CYC Architect</b>: a central circular open courtyard, a radial layout, a circular landscape ramp, rectangular production/office blocks intersecting the circle, an open doorless entrance — plus the Campus 3.0 expansion with its fish-pond court to the east. Explore the campus, find the <b>10 golden info blocks</b> and press <kbd>E</kbd> to learn the design idea behind each spot! The campus shifts between day and night over time, indoor ceiling lamps switch on automatically after dark, and a soft ambient soundtrack plays as you explore.',
@@ -740,6 +833,12 @@ en: {
 },
 ms: {
   docTitle:'ViTrox Campus 2.0 — Dunia Pendidikan Blok (VitroxCraft)',
+  tagline:'Terokai Kampus ViTrox dalam blok — belajar seni bina, pengaturcaraan dan kisah ViTrox, sendirian atau bersama rakan sekelas.',
+  featTitle:'Apa ada di kampus',
+  features:['🟨 10 blok maklumat emas — pelajaran ringkas seni bina','💬 20+ watak — pengasas, pensyarah, jurutera… dekati dan tekan <kbd>E</kbd> (atau ketik 💬)','💻 Kuiz IT DataMine — 10 soalan di bilik komputer tingkat 4','🎓 ViTrox Education — kiosk program dan laluan Kisah Kolej','🌸 Taman Jepun dan ♨ onsen terbuka','🏗️ Bangunan pelan induk baharu di timur laut — naik sampai ke bumbung','⏱️ Cabaran 20 minit — selesaikan misi untuk mendapat gelaran'],
+  howTo:'🎮 Cara bermain', aboutT:'ℹ️ Tentang dunia ini', settingsT:'⚙️ Tetapan',
+  tk1:'Gerak', tv1:'Kayu bedik, kiri bawah', tk2:'Lihat sekeliling', tv2:'Seret di sebelah kanan skrin', tk3:'Lompat / Terbang', tv3:'⬆ lompat · ✈ terbang (⬇ untuk turun)',
+  tk4:'Pecah / Letak', tv4:'⛏ pecahkan blok · 🧱 letak blok', tk5:'Interaksi / Menu', tv5:'💬 berbual & baca · 📷 foto · ☰ menu',
   h1:'Dunia Pendidikan Blok',
   sub:'VitroxCraft — pengalaman pendidikan Minecraft versi web · Batu Kawan, Pulau Pinang',
   desc:'Dunia ini berdasarkan <b>ViTrox Campus 2.0 rekaan CYC Architect</b>: laman dalaman bulat di tengah, susun atur jejari, tanjakan landskap membulat, blok pejabat/kilang segi empat yang bersilang dengan bentuk bulat, pintu masuk terbuka tanpa pintu — serta pengembangan Campus 3.0 dengan laman kolam ikannya di timur. Jelajahi kampus, cari <b>10 blok maklumat emas</b> dan tekan <kbd>E</kbd> untuk mempelajari idea reka bentuk setiap lokasi! Kampus beralih antara siang dan malam mengikut masa, lampu siling dalam bangunan menyala secara automatik selepas gelap, dan muzik latar yang lembut dimainkan semasa anda meneroka.',
@@ -5329,8 +5428,12 @@ function applyLang(){
   put('lock-title', t('lockTitle')); put('lock-desc', t('lockDesc')); put('lock-btn', t('lockBtn'));
   lockInputEl.placeholder = t('lockPlaceholder');
   put('ov-h1', t('h1')); put('ov-sub', t('sub')); put('ov-desc', t('desc'));
+  put('ov-tagline', t('tagline')); put('ov-feat-title', t('featTitle'));
+  put('ov-features', t('features').map(f=>`<li>${f}</li>`).join(''));
+  put('ov-howto', t('howTo')); put('ov-about-t', t('aboutT')); put('ov-settings', t('settingsT'));
   let rows='';
-  for(let i=1;i<=7;i++) rows += `<tr><td>${t('k'+i)}</td><td>${t('v'+i)}</td></tr>`;
+  if(IS_TOUCH) for(let i=1;i<=5;i++) rows += `<tr><td>${t('tk'+i)}</td><td>${t('tv'+i)}</td></tr>`;   // 触屏设备只显示触屏操作
+  else for(let i=1;i<=7;i++) rows += `<tr><td>${t('k'+i)}</td><td>${t('v'+i)}</td></tr>`;
   put('ov-keys', rows);
   put('lbl-name', t('yourName'));
   put('btn-start', t('btnStart')); put('btn-reset', t('btnReset'));
