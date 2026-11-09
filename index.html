@@ -391,6 +391,9 @@
     #menu-panel h1 { font-size:20px; }
     .menu-tagline { font-size:14px; }
   }
+  body.iso #crosshair { display:none; }
+  body.iso canvas#game { cursor:crosshair; }
+  .menu-switch { display:inline-block; margin-top:10px; font-size:13px; color:#2b5d8a; font-weight:600; }
 </style>
 </head>
 <body>
@@ -462,6 +465,7 @@
       <button class="btn big" id="btn-start"></button>
       <div class="menu-secondary">
         <button class="btn gray" id="btn-ad"></button>
+        <a class="menu-switch" id="ov-switch" href="?view=iso"></a>
         <label class="tts-toggle" id="ad-loop-row">
           <input type="checkbox" id="ad-loop-cb"><span id="ad-loop-lbl"></span>
         </label>
@@ -631,6 +635,14 @@ zh: {
   howTo:'🎮 操作说明', aboutT:'ℹ️ 关于这个世界', settingsT:'⚙️ 设置',
   tk1:'移动', tv1:'左下角摇杆', tk2:'转视角', tv2:'在屏幕右侧拖动', tk3:'跳跃 / 飞行', tv3:'⬆ 跳跃 · ✈ 飞行（⬇ 下降）',
   tk4:'挖 / 放方块', tv4:'⛏ 挖掉方块 · 🧱 放置方块', tk5:'互动 / 菜单', tv5:'💬 对话、阅读 · 📷 拍照 · ☰ 菜单',
+  isoLink:'🧊 试试 3D 等角版本', fpLink:'🎮 回到第一人称版本', isoBadge:'等角版',
+  ik1:'移动 / 跳跃', iv1:'<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>（按当前视角方向）+ <kbd>空格</kbd>',
+  ik2:'旋转 / 缩放视角', iv2:'<kbd>Z</kbd> / <kbd>X</kbd> 旋转 90° · 鼠标滚轮缩放',
+  ik3:'挖 / 放方块', iv3:'鼠标指向方块（白框）· 左键挖 · 右键放',
+  ik4:'选方块 / 飞行', iv4:'<kbd>1</kbd>–<kbd>9</kbd> 选方块 · <kbd>F</kbd> 飞行（<kbd>Shift</kbd> 下降）',
+  ik5:'互动 / 任务', iv5:'<kbd>E</kbd> 对话、阅读 · <kbd>Q</kbd> 任务清单 · 走进室内会自动剖开楼上',
+  ik6:'菜单 / 其他', iv6:'<kbd>Esc</kbd> 回到菜单 · <kbd>M</kbd> 静音 · <kbd>P</kbd> 拍照',
+  itv2:'在屏幕右侧左右拖动旋转视角',
   h1:'方块教育世界',
   sub:'VitroxCraft — 网页版 Minecraft 教育体验 · 槟城峇都交湾 (Batu Kawan, Penang)',
   desc:'本世界以 <b>CYC Architect 设计的 ViTrox Campus 2.0</b> 为蓝本：中央圆形露天庭院、放射状布局、环形景观坡道、与圆形体量相交的矩形生产办公楼，以及无门的开放式入口，东侧还有扩建的 Campus 3.0 与鱼池庭院。走进园区，找到 <b>10 个金色信息方块</b>，按 <kbd>E</kbd> 学习每一处的建筑设计理念！园区会随时间在白天与夜晚之间切换，室内的吸顶灯会在夜晚自动点亮，还有轻柔的环境音效相伴。',
@@ -735,6 +747,14 @@ en: {
   howTo:'🎮 How to play', aboutT:'ℹ️ About this world', settingsT:'⚙️ Settings',
   tk1:'Move', tv1:'Joystick, bottom-left', tk2:'Look around', tv2:'Drag on the right side of the screen', tk3:'Jump / Fly', tv3:'⬆ jump · ✈ fly (⬇ to go down)',
   tk4:'Break / Place', tv4:'⛏ break a block · 🧱 place a block', tk5:'Interact / Menu', tv5:'💬 talk & read · 📷 photo · ☰ menu',
+  isoLink:'🧊 Try the 3D isometric version', fpLink:'🎮 Back to the first-person version', isoBadge:'Isometric',
+  ik1:'Move / Jump', iv1:'<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> (relative to the view) + <kbd>Space</kbd>',
+  ik2:'Rotate / Zoom', iv2:'<kbd>Z</kbd> / <kbd>X</kbd> rotate 90° · mouse wheel to zoom',
+  ik3:'Break / Place blocks', iv3:'Point at a block (white outline) · left click breaks · right click places',
+  ik4:'Select block / Fly', iv4:'<kbd>1</kbd>–<kbd>9</kbd> pick a block · <kbd>F</kbd> fly (<kbd>Shift</kbd> down)',
+  ik5:'Interact / Quests', iv5:'<kbd>E</kbd> talk & read · <kbd>Q</kbd> quest list · floors above you hide when you go indoors',
+  ik6:'Menu / Other', iv6:'<kbd>Esc</kbd> back to menu · <kbd>M</kbd> mute · <kbd>P</kbd> photo',
+  itv2:'Drag left/right on the right side to rotate the view',
   h1:'Block Education World',
   sub:'VitroxCraft — a web Minecraft education experience · Batu Kawan, Penang',
   desc:'This world is modelled on <b>ViTrox Campus 2.0 by CYC Architect</b>: a central circular open courtyard, a radial layout, a circular landscape ramp, rectangular production/office blocks intersecting the circle, an open doorless entrance — plus the Campus 3.0 expansion with its fish-pond court to the east. Explore the campus, find the <b>10 golden info blocks</b> and press <kbd>E</kbd> to learn the design idea behind each spot! The campus shifts between day and night over time, indoor ceiling lamps switch on automatically after dark, and a soft ambient soundtrack plays as you explore.',
@@ -839,6 +859,14 @@ ms: {
   howTo:'🎮 Cara bermain', aboutT:'ℹ️ Tentang dunia ini', settingsT:'⚙️ Tetapan',
   tk1:'Gerak', tv1:'Kayu bedik, kiri bawah', tk2:'Lihat sekeliling', tv2:'Seret di sebelah kanan skrin', tk3:'Lompat / Terbang', tv3:'⬆ lompat · ✈ terbang (⬇ untuk turun)',
   tk4:'Pecah / Letak', tv4:'⛏ pecahkan blok · 🧱 letak blok', tk5:'Interaksi / Menu', tv5:'💬 berbual & baca · 📷 foto · ☰ menu',
+  isoLink:'🧊 Cuba versi isometrik 3D', fpLink:'🎮 Kembali ke versi orang pertama', isoBadge:'Isometrik',
+  ik1:'Gerak / Lompat', iv1:'<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> (ikut arah pandangan) + <kbd>Space</kbd>',
+  ik2:'Putar / Zum', iv2:'<kbd>Z</kbd> / <kbd>X</kbd> putar 90° · roda tetikus untuk zum',
+  ik3:'Pecah / Letak blok', iv3:'Halakan ke blok (garis putih) · klik kiri pecah · klik kanan letak',
+  ik4:'Pilih blok / Terbang', iv4:'<kbd>1</kbd>–<kbd>9</kbd> pilih blok · <kbd>F</kbd> terbang (<kbd>Shift</kbd> turun)',
+  ik5:'Interaksi / Misi', iv5:'<kbd>E</kbd> berbual & baca · <kbd>Q</kbd> senarai misi · tingkat atas tersembunyi apabila masuk ke dalam',
+  ik6:'Menu / Lain-lain', iv6:'<kbd>Esc</kbd> kembali ke menu · <kbd>M</kbd> senyap · <kbd>P</kbd> foto',
+  itv2:'Seret kiri/kanan di sebelah kanan skrin untuk memutar pandangan',
   h1:'Dunia Pendidikan Blok',
   sub:'VitroxCraft — pengalaman pendidikan Minecraft versi web · Batu Kawan, Pulau Pinang',
   desc:'Dunia ini berdasarkan <b>ViTrox Campus 2.0 rekaan CYC Architect</b>: laman dalaman bulat di tengah, susun atur jejari, tanjakan landskap membulat, blok pejabat/kilang segi empat yang bersilang dengan bentuk bulat, pintu masuk terbuka tanpa pintu — serta pengembangan Campus 3.0 dengan laman kolam ikannya di timur. Jelajahi kampus, cari <b>10 blok maklumat emas</b> dan tekan <kbd>E</kbd> untuk mempelajari idea reka bentuk setiap lokasi! Kampus beralih antara siang dan malam mengikut masa, lampu siling dalam bangunan menyala secara automatik selepas gelap, dan muzik latar yang lembut dimainkan semasa anda meneroka.',
@@ -2409,7 +2437,10 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x8ec8f0);
 scene.fog = new THREE.Fog(0x8ec8f0, 70, 190);
 
-const camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.1, 400);
+// ?view=iso：3D 等角（isometric）版本——正交相机斜 45° 俯视跟随玩家，其余玩法与第一人称版共用
+const ISO = new URLSearchParams(location.search).get('view')==='iso';
+const camera = ISO ? new THREE.OrthographicCamera(-1,1,1,-1,1,700)
+                   : new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.1, 400);
 camera.rotation.order = 'YXZ';
 
 const atlasTex = new THREE.CanvasTexture(atlas);
@@ -3029,7 +3060,8 @@ let locked=false, modalOpen=false;
 const IS_TOUCH = ('ontouchstart' in window);
 let touchPlay=false;
 const touchVec={x:0,y:0};
-function playing(){ return locked || touchPlay; }
+let isoPlay=false;                 // 等角版：桌面端不锁鼠标，用这个标记「正在游戏」
+function playing(){ return locked || touchPlay || isoPlay; }
 
 function respawn(){
   player.pos.set(0.5, 5, 50.5); player.vel.set(0,0,0);
@@ -3099,9 +3131,8 @@ function physics(dt){
 }
 
 /* ---- 体素射线（DDA）---- */
-function raycast(maxDist){
-  const o = camera.position;
-  const d = new THREE.Vector3(); camera.getWorldDirection(d);
+function raycast(maxDist, o, d, maxY=Infinity){
+  if(!o){ o = camera.position; d = new THREE.Vector3(); camera.getWorldDirection(d); }
   let x=Math.floor(o.x), y=Math.floor(o.y), z=Math.floor(o.z);
   const stepX=Math.sign(d.x), stepY=Math.sign(d.y), stepZ=Math.sign(d.z);
   const tDX = d.x!==0?Math.abs(1/d.x):Infinity;
@@ -3113,7 +3144,7 @@ function raycast(maxDist){
   let face=[0,0,0], t=0;
   while(t<=maxDist){
     const b=get(x,y,z);
-    if(b!==B.AIR && b!==B.WATER && b!==B.ONSEN) return {x,y,z,block:b,face};
+    if(b!==B.AIR && b!==B.WATER && b!==B.ONSEN && y<maxY) return {x,y,z,block:b,face};
     if(tMX<tMY && tMX<tMZ){ x+=stepX; t=tMX; tMX+=tDX; face=[-stepX,0,0]; }
     else if(tMY<tMZ){ y+=stepY; t=tMY; tMY+=tDY; face=[0,-stepY,0]; }
     else { z+=stepZ; t=tMZ; tMZ+=tDZ; face=[0,0,-stepZ]; }
@@ -3924,7 +3955,7 @@ function openInfo(i){
 // 有些浏览器按 Esc 关闭弹窗时会顺带强制解锁鼠标（浏览器行为，JS 无法阻止），
 // 如果不重新请求锁定，玩家就会被晾在开始菜单，需要再点一次「进入园区」才能继续。
 function resumeAfterModal(){
-  if(adMode || touchPlay || locked) return;
+  if(adMode || touchPlay || locked || isoPlay) return;
   const req = canvas.requestPointerLock();
   if(req && typeof req.catch==='function'){
     req.catch(()=>{ if(!locked && !modalOpen) overlayEl.classList.remove('hidden'); });
@@ -4225,7 +4256,7 @@ function startPosLoop(){
   clearInterval(posTimer);
   posTimer = setInterval(()=>{
     const msg = {t:'pos', x:player.pos.x, y:player.pos.y, z:player.pos.z,
-                 yaw:player.yaw, pitch:player.pitch};
+                 yaw:ISO ? isoFacing : player.yaw, pitch:ISO ? 0 : player.pitch};
     if(net.mode==='host'){ msg.id=net.myId; broadcast(msg); }
     else if(net.mode==='guest' && net.hostConn && net.hostConn.open) net.hostConn.send(msg);
   }, 120);
@@ -5303,6 +5334,10 @@ document.getElementById('btn-start').addEventListener('click',()=>{
     touchPlay = true;
     overlayEl.classList.add('hidden');
     document.getElementById('touch-ui').classList.remove('hidden');
+  }else if(ISO){
+    isoPlay = true;
+    overlayEl.classList.add('hidden');
+    isoEnsureAvatar(true);
   }else{
     canvas.requestPointerLock();
   }
@@ -5324,6 +5359,7 @@ document.addEventListener('pointerlockchange',()=>{
   else if(!modalOpen && !touchPlay) overlayEl.classList.remove('hidden');
 });
 document.addEventListener('mousemove',e=>{
+  if(ISO){ isoMouse.set(e.clientX/innerWidth*2-1, -(e.clientY/innerHeight)*2+1); isoMouseActive=true; return; }
   if(!locked||modalOpen) return;
   player.yaw   -= e.movementX*0.0024;
   player.pitch -= e.movementY*0.0024;
@@ -5343,7 +5379,11 @@ document.addEventListener('keydown',e=>{
   if(modalOpen && (e.code==='Escape'||e.code==='Enter')){
     closeActiveModal(); return;
   }
-  if(!locked) return;
+  if(ISO && isoPlay && e.code==='Escape'){         // 等角版没有锁鼠标，Esc 直接回到开始菜单
+    isoPlay=false; keys.clear(); overlayEl.classList.remove('hidden'); return;
+  }
+  if(!locked && !isoPlay) return;
+  if(ISO && (e.code==='KeyZ'||e.code==='KeyX')){ isoYawTarget += (e.code==='KeyZ'?1:-1)*Math.PI/2; return; }
   keys.add(e.code);
   if(e.code==='KeyF'){
     player.fly=!player.fly; player.vel.y=0;
@@ -5366,6 +5406,7 @@ document.addEventListener('keyup',e=>keys.delete(e.code));
 addEventListener('blur',()=>keys.clear());   // 切走窗口时收不到 keyup，否则角色会一直自动前进
 document.addEventListener('pointerlockchange',()=>{ if(!document.pointerLockElement) keys.clear(); });
 addEventListener('wheel',e=>{
+  if(ISO){ if(isoPlay && !modalOpen) isoZoom = clamp(isoZoom*(e.deltaY>0?1.12:1/1.12), 10, 90); return; }
   if(!locked) return;
   hotSel = (hotSel + (e.deltaY>0?1:-1) + HOT.length)%HOT.length;
   buildHotbar();
@@ -5374,7 +5415,7 @@ canvas.addEventListener('contextmenu',e=>e.preventDefault());
 
 function doBreak(){
   if(modalOpen) return;
-  const hit = raycast(7);
+  const hit = pickTarget();
   if(!hit) return;
   // 点击信息方块 → 打开说明
   const infoIdx = INFO_POINTS.findIndex(p=>p.x===hit.x&&p.y===hit.y&&p.z===hit.z);
@@ -5388,7 +5429,7 @@ function doBreak(){
 }
 function doPlace(){
   if(modalOpen) return;
-  const hit = raycast(7);
+  const hit = pickTarget();
   if(!hit) return;
   const tx=hit.x+hit.face[0], ty=hit.y+hit.face[1], tz=hit.z+hit.face[2];
   if(!inBounds(tx,ty,tz)) return;
@@ -5407,14 +5448,14 @@ function doPlace(){
   blip(300,0.07);
 }
 canvas.addEventListener('mousedown',e=>{
-  if(!locked||modalOpen) return;
+  if((!locked && !isoPlay)||modalOpen) return;
   if(e.button===0) doBreak();
   else if(e.button===2) doPlace();
 });
 
 addEventListener('resize',()=>{
-  camera.aspect=innerWidth/innerHeight;
-  camera.updateProjectionMatrix();
+  if(ISO) isoResize();
+  else { camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); }
   renderer.setSize(innerWidth,innerHeight);
 });
 
@@ -5430,9 +5471,12 @@ function applyLang(){
   put('ov-h1', t('h1')); put('ov-sub', t('sub')); put('ov-desc', t('desc'));
   put('ov-tagline', t('tagline')); put('ov-feat-title', t('featTitle'));
   put('ov-features', t('features').map(f=>`<li>${f}</li>`).join(''));
-  put('ov-howto', t('howTo')); put('ov-about-t', t('aboutT')); put('ov-settings', t('settingsT'));
+  put('ov-howto', t('howTo'));
+  { const sw=document.getElementById('ov-switch'); sw.href = ISO ? '?' : '?view=iso'; sw.innerHTML = ISO ? t('fpLink') : t('isoLink'); }
+  if(ISO) put('ov-h1', t('h1') + ' · ' + t('isoBadge')); put('ov-about-t', t('aboutT')); put('ov-settings', t('settingsT'));
   let rows='';
-  if(IS_TOUCH) for(let i=1;i<=5;i++) rows += `<tr><td>${t('tk'+i)}</td><td>${t('tv'+i)}</td></tr>`;   // 触屏设备只显示触屏操作
+  if(IS_TOUCH) for(let i=1;i<=5;i++) rows += `<tr><td>${t('tk'+i)}</td><td>${(ISO&&i===2)?t('itv2'):t('tv'+i)}</td></tr>`;   // 触屏设备只显示触屏操作
+  else if(ISO) for(let i=1;i<=6;i++) rows += `<tr><td>${t('ik'+i)}</td><td>${t('iv'+i)}</td></tr>`;                 // 等角版键鼠操作
   else for(let i=1;i<=7;i++) rows += `<tr><td>${t('k'+i)}</td><td>${t('v'+i)}</td></tr>`;
   put('ov-keys', rows);
   put('lbl-name', t('yourName'));
@@ -5623,6 +5667,93 @@ function capturePhoto(){
 document.getElementById('photo-capture-btn').addEventListener('click', ()=>{ capturePending=true; });
 document.getElementById('photo-exit-btn').addEventListener('click', togglePhotoMode);
 
+
+/* ================================================================
+   3D 等角（isometric）版本：?view=iso
+   正交相机沿 45° 方位、35.26° 仰角俯视并平滑跟随玩家；Z / X 旋转 90°，滚轮缩放；
+   鼠标指向方块（有白色描边）左键挖、右键放；走进室内时自动切掉头顶以上的楼层（剖切）
+================================================================ */
+let isoYaw=Math.PI/4, isoYawTarget=Math.PI/4, isoZoom=34, isoFacing=0, isoAvatar=null, isoAvatarName='';
+let isoMouseActive=false;
+const isoMouse=new THREE.Vector2(), isoRay=new THREE.Raycaster(), isoTarget=new THREE.Vector3();
+const isoCut=new THREE.Plane(new THREE.Vector3(0,-1,0), 999);
+const isoHover=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.02,1.02,1.02)),
+  new THREE.LineBasicMaterial({color:0xffffff}));
+isoHover.visible=false;
+function isoResize(){
+  const a=innerWidth/innerHeight, h=isoZoom/2;
+  camera.left=-h*a; camera.right=h*a; camera.top=h; camera.bottom=-h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+}
+function isoEnsureAvatar(rename){
+  const nm = (nameInput.value.trim().slice(0,12)) || t('playerDefault');
+  if(isoAvatar && (!rename || nm===isoAvatarName)) return;
+  if(isoAvatar) scene.remove(isoAvatar.group);
+  isoAvatar = createAvatar(nm); isoAvatarName = nm;
+  scene.add(isoAvatar.group);
+}
+function isoCutY(){                               // 头顶有楼板 → 在本层天花板下方剖切
+  const x=Math.floor(player.pos.x), z=Math.floor(player.pos.z), y0=Math.floor(player.pos.y+0.01);
+  for(let y=y0+2;y<=y0+14;y++) if(isSolid(x,y,z)) return y0+2.9;
+  return Infinity;
+}
+function isoPickRay(){
+  if(isoMouseActive){
+    isoRay.setFromCamera(isoMouse, camera);
+    return { o:isoRay.ray.origin.clone(), d:isoRay.ray.direction.clone(), max:900 };
+  }
+  // 触屏：从角色眼睛朝面向方向略微向下
+  const d=new THREE.Vector3(-Math.sin(isoFacing)*0.85, -0.5, -Math.cos(isoFacing)*0.85).normalize();
+  return { o:new THREE.Vector3(player.pos.x, player.pos.y+player.EYE, player.pos.z), d, max:6 };
+}
+function pickTarget(){
+  if(!ISO) return raycast(7);
+  const r=isoPickRay();
+  const hit=raycast(r.max, r.o, r.d, isoCut.constant);
+  if(!hit) return null;
+  const dist=Math.hypot(hit.x+0.5-player.pos.x, hit.y+0.5-(player.pos.y+1), hit.z+0.5-player.pos.z);
+  return dist<=8 ? hit : null;                    // 与第一人称版一样只能操作身边的方块
+}
+function isoFrame(dt){
+  isoEnsureAvatar(false);
+  // 视角旋转与缩放（平滑）
+  isoYaw += (isoYawTarget-isoYaw)*Math.min(1,dt*8);
+  const h=isoZoom/2, a=innerWidth/innerHeight;
+  if(Math.abs(camera.top-h)>0.01){ camera.left=-h*a; camera.right=h*a; camera.top=h; camera.bottom=-h; camera.updateProjectionMatrix(); }
+  // 角色：位置跟随玩家，朝向移动方向，走路摆手摆脚
+  const g=isoAvatar.group, ox=g.position.x, oz=g.position.z;
+  g.position.copy(player.pos);
+  const vx=player.pos.x-ox, vz=player.pos.z-oz, sp=Math.hypot(vx,vz)/Math.max(dt,1e-4);
+  if(sp>0.5) isoFacing=Math.atan2(-vx,-vz);
+  const dy=((isoFacing-g.rotation.y+Math.PI*3)%(Math.PI*2))-Math.PI;
+  g.rotation.y += dy*Math.min(1,dt*12);
+  isoAvatar.phase += Math.min(sp,6)*dt*4;
+  const sw=Math.sin(isoAvatar.phase)*Math.min(sp/3,1)*0.6;
+  isoAvatar.armL.rotation.x=sw; isoAvatar.armR.rotation.x=-sw; isoAvatar.legL.rotation.x=-sw; isoAvatar.legR.rotation.x=sw;
+  g.visible = !photoMode || true;
+  // 相机：等角方位 + 平滑跟随
+  isoTarget.lerp(new THREE.Vector3(player.pos.x, player.pos.y+1, player.pos.z), Math.min(1,dt*6));
+  const el=Math.atan(1/Math.SQRT2), D=160;
+  camera.position.set(isoTarget.x+Math.sin(isoYaw)*Math.cos(el)*D, isoTarget.y+Math.sin(el)*D, isoTarget.z+Math.cos(isoYaw)*Math.cos(el)*D);
+  camera.rotation.set(-el, isoYaw, 0);
+  // 室内剖切
+  isoCut.constant = isoCutY();
+  renderer.clippingPlanes = isFinite(isoCut.constant) ? [isoCut] : [];
+  // 鼠标指向的方块描边
+  const hit = (playing() && !modalOpen && !adMode) ? pickTarget() : null;
+  isoHover.visible=!!hit && !photoMode;
+  if(hit) isoHover.position.set(hit.x+0.5, hit.y+0.5, hit.z+0.5);
+}
+if(ISO){
+  document.body.classList.add('iso');
+  skyDome.visible=false;
+  for(const c of clouds) c.visible=false;          // 云层在相机与地面之间，等角视角下会挡住园区
+  scene.fog.near=600; scene.fog.far=1200;
+  scene.add(isoHover);
+  isoTarget.copy(player.pos);
+  isoResize();
+}
 function animate(){
   requestAnimationFrame(animate);
   const dt=Math.min(clock.getDelta(),0.05);
@@ -5630,6 +5761,7 @@ function animate(){
   if(adMode){
     tickAdMode(dt);
   }else if(playing() && !modalOpen && !gameEnded){
+    if(ISO) player.yaw = isoYaw;                  // WASD 相对当前视角方向移动
     physics(dt); playTime+=dt;
     if(playTime>=GAME_TIME_LIMIT) endGame('timeout');
     else if(visited.size===INFO_POINTS.length && cmScore===cmTotalPoints()) endGame('complete');
@@ -5666,6 +5798,7 @@ function animate(){
     m.position.y = m.userData.baseY + Math.sin(elapsed*2+i)*0.18;
   });
   posEl.textContent = `x:${player.pos.x.toFixed(0)} y:${player.pos.y.toFixed(0)} z:${player.pos.z.toFixed(0)}${player.fly?' ✈':''}`;
+  if(ISO) isoFrame(dt);
   renderer.render(scene,camera);
   if(capturePending){ capturePending=false; capturePhoto(); }
 }
@@ -5716,7 +5849,11 @@ if(IS_TOUCH && !matchMedia('(pointer:fine)').matches){
     if(!touchPlay) return;
     let handled=false;
     for(const tc of e.changedTouches){
-      if(tc.identifier===lookId){
+      if(tc.identifier===lookId && ISO){                 // 等角版：横向拖动 = 旋转视角
+        isoYawTarget -= (tc.clientX-lastTX)*0.006;
+        lastTX=tc.clientX; lastTY=tc.clientY;
+        handled=true;
+      }else if(tc.identifier===lookId){
         player.yaw   -= (tc.clientX-lastTX)*0.006;
         player.pitch -= (tc.clientY-lastTY)*0.006;
         player.pitch = clamp(player.pitch,-Math.PI/2+0.01,Math.PI/2-0.01);
@@ -5766,7 +5903,7 @@ if(IS_TOUCH && !matchMedia('(pointer:fine)').matches){
 
 // 调试/自动化测试钩子
 window.__test = {
-  player, camera, overlay: overlayEl,
+  player, camera, overlay: overlayEl, pickTarget, iso:()=>({ ISO, isoPlay, isoYaw, isoZoom, cut:isoCut.constant }),
   hostRoom, joinRoom, get,
   lockscreen: lockscreenEl,
   isLocked: ()=>!lockscreenEl.classList.contains('hidden'),
