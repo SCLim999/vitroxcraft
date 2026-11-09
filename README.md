@@ -70,6 +70,15 @@ re-checked on every page load; only a SHA-256 hash of the password ships in the
 source. Walk with `WASD`, fly with `F`, break/place blocks with the mouse, and
 press `E` near anything interactive.
 
+**3D isometric version:** open
+[sclim999.github.io/vitroxcraft/?view=iso](https://sclim999.github.io/vitroxcraft/?view=iso)
+(or use the "🧊 Try the 3D isometric version" link on the start menu) to play the same
+campus from a classic isometric bird's-eye view: the camera follows your character at a 45°
+angle, `Z` / `X` rotate the view by 90°, the mouse wheel zooms, and you point at a block
+(white outline) to break it with left click or place one with right click. Floors above
+you are cut away automatically when you walk indoors. On touch devices the same joystick
+and buttons work, and dragging on the right side rotates the view.
+
 ## What's inside
 
 - **10 golden info blocks** — walk up and press `E` to read short architecture
